@@ -32,7 +32,7 @@ For Laravel, I also needed be able to _Manage docker as a non-root user_ from th
 
 ## Installing Laravel
 
-Now that your env is set up, you can install Laravel using the official installation instructions using
+Now that docker is set up, you can install Laravel using the official installation instructions with
 [docker/sail](https://laravel.com/docs/8.x/installation#getting-started-on-linux). To begin with (and
 for the forseeable future) I only need postgres, so:
 ```
