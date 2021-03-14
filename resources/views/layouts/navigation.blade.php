@@ -12,12 +12,10 @@
 
                 <!-- Navigation Links -->
                 {{-- Also add your links below in the "Responsive Navigation Menu" --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
                         {{ __('Tracker') }}
                     </x-nav-link>
