@@ -12,7 +12,7 @@ I develop on Ubuntu 18.04, and typically deploy to a Red Hat based system.
 
 Before installing Laravel, I had to do all this.
 
-My dev machine OS is Ubuntu 18.04. I installed `docker` and `docker-engine` following the
+I installed `docker` and `docker-engine` following the
 [official install guide](https://docs.docker.com/engine/install/ubuntu/), which worked
 perfectly.  I'm pretty sure I installed _using the repository_ method.
 
@@ -89,6 +89,7 @@ Show what is running
 # shows running services
 sail ps
 docker-compose ps
+
 # shows running containers
 docker ps
 ```
@@ -113,6 +114,7 @@ sail exec pgsql bash
 
 # conect to a container
 docker exec -it <container-name-or-id> bash
+
 # for example:
 docker exec -it tracal_httpd_1 bash
 ```
@@ -121,8 +123,10 @@ View container logs
 ```
 # tail and follow all container logs
 docker-compose logs -f
+
 # tail a single service's logs
 docker-compose logs <service>
+
 # for example
 docker-compose logs httpd
 ```
@@ -130,6 +134,7 @@ docker-compose logs httpd
 Run a single command and then trash the containner
 ```
 docker run --rm <image-name> <command> > my-httpd.conf
+
 # for example:
 docker run --rm httpd:2.4 cat /etc/apache2/apache2.conf > my-httpd.conf
 ```
