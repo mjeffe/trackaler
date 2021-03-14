@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// keep this around (for now) to help learning blade
+Route::get('/welcome', function () {
     return view('welcome');
+});
+
+Route::get('/', function () {
+    if (Auth::check()) {
+        return view('dashboard');
+    } else {
+        return view('home');
+    }
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/tracker', function () {
+    return view('tracker');
+})->middleware(['auth'])->name('tracker');
 
 require __DIR__.'/auth.php';
