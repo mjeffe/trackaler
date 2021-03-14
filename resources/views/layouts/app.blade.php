@@ -26,6 +26,8 @@
                     {{ $slot }}
                 </x-app-content>
             </main>
+
+            @include('layouts.footer')
         </div>
     </body>
 </html>

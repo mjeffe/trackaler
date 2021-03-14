@@ -6,6 +6,6 @@
         <li><a href="https://laravel.com" target="_blank">Laravel</a></li>
         <li><a href="https://tailwindcss.com" target="_blank">TailwindsCSS</a></li>
         <li><a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</a></li>
-        <li><a href="https://iconmonstr.com" target="_blank">Icons by Iconmonstr</a></li>
+        <li><a href="https://iconmonstr.com" target="_blank">Icons by iconmonstr</a></li>
     </ul>
 </x-app-layout>
