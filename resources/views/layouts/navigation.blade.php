@@ -19,6 +19,9 @@
                     <x-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
                         {{ __('Tracker') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('credits')" :active="request()->routeIs('credits')">
+                        {{ __('Credits') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -72,6 +75,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
                 {{ __('Tracker') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('credits')" :active="request()->routeIs('credits')">
+                {{ __('Credits') }}
             </x-responsive-nav-link>
         </div>
 

@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//
+// Non-authenticated routes
+//
+
 // keep this around (for now) to help learning blade
 Route::get('/welcome', function () {
     return view('welcome');
@@ -25,8 +29,15 @@ Route::get('/', function () {
     } else {
         return view('home');
     }
-});
+})->name('home');
 
+Route::get('/credits', function () {
+    return view('credits');
+})->name('credits');
+
+//
+// Authenticated routes
+//
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -34,5 +45,6 @@ Route::get('/dashboard', function () {
 Route::get('/tracker', function () {
     return view('tracker');
 })->middleware(['auth'])->name('tracker');
+
 
 require __DIR__.'/auth.php';
