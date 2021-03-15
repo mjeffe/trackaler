@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MetricsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,13 +39,25 @@ Route::get('/credits', function () {
 //
 // Authenticated routes
 //
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/tracker', function () {
-    return view('tracker');
-})->middleware(['auth'])->name('tracker');
+    Route::get('/tracker', function () {
+        return view('tracker');
+    })->middleware(['auth'])->name('tracker');
+
+    /*
+     * Metrics
+     */
+    Route::group(['prefix' => 'metrics'], function () {
+        //Route::get('/', [MetricsController::class, 'index']);
+        //Route::get('/', [MetricsController::class, 'create']);
+        Route::post('/', [MetricsController::class, 'store']);
+    });
+});
+
 
 
 require __DIR__.'/auth.php';
