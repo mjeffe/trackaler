@@ -2,15 +2,15 @@
 
     <x-card class="mt-6">
         <x-slot name="title">
-            Select a metric to track
+            Track something
         </x-slot>
 
         <form method="POST" action="{{url('/metrics')}}">
             @csrf
 
             <label class="block mt-3">
-                <x-label>Select something to track</x-label>
-                <x-select id="metric_type" name="metric_type" xsize="7">
+                <x-label for="metric">Select something to track</x-label>
+                <x-select id="metric" name="metric">
                     <option value="weight">Weight</option>
                     <option value="calories">Calories</option>
                     <option value="carbs">Carbs</option>
@@ -20,13 +20,16 @@
             </label>
 
             <label class="block mt-3">
-                <x-label class="text-gray-700">Value:</x-label>
-                <x-input type="text" name="metric_value" required placeholder="" class="block" />
+                <x-label for="value" class="text-gray-700">Value:</x-label>
+                <x-input type="text" id="value" name="value" required placeholder="" class="block" />
             </label>
 
             <label class="block mt-3">
-                <x-label class="text-gray-700">Measured on Date/Time:</x-label>
-                <x-input type="datetime-local" name="measured_on" required placeholder="" class="block" />
+                <x-label for="measured_on" class="text-gray-700">Measured on Date/Time:</x-label>
+                <x-input type="date" id="measured_on" name="measured_on"
+                    value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}"
+                    required
+                    class="block" />
             </label>
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>

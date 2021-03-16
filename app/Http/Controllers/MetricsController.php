@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Metrics;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class MetricsController extends Controller
-{
+class MetricsController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $metrics = Metrics::where('user_id', Auth::user()->id)->get();
+
+        return view('reporter', ['data' => $metrics]);
     }
 
     /**
@@ -34,19 +35,25 @@ class MetricsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        dd($request->all());
-        //$someName = $request->someName;
+        $model = new  Metrics();
+
+        $model->fill($request->all());
+        $model->user_id = Auth::user()->id;
+        $model->save();
+
+        return view('tracker');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource type.
      *
-     * @param  \App\Models\Metrics  $metrics
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Metrics $metrics)
-    {
-        //
+    public function show(Request $request, $metric) {
+        $metrics = Metrics::where('user_id', Auth::user()->id)->where('metric', $metric)->get();
+
+        return view('reporter', ['data' => $metrics]);
     }
 
     /**

@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class' => 'min-h-full flex flex-col sm:justify-center items-center pt-6 sm:pt-0']) }}>
-    <div class="text-2xl">
+    <div class="text-2xl text-gray-700">
         {{ $title }}
     </div>
 

@@ -52,9 +52,10 @@ Route::group(['middleware' => ['auth']], function () {
      * Metrics
      */
     Route::group(['prefix' => 'metrics'], function () {
-        //Route::get('/', [MetricsController::class, 'index']);
+        Route::get('/', [MetricsController::class, 'index'])->name('reporter');
         //Route::get('/', [MetricsController::class, 'create']);
         Route::post('/', [MetricsController::class, 'store']);
+        Route::get('/{metric}', [MetricsController::class, 'show']);
     });
 });
 
