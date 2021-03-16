@@ -13,9 +13,10 @@ class MetricsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $metrics = Metrics::where('user_id', Auth::user()->id)->get();
+        return view('reporter', ['data' => []]);
+        //$metrics = Metrics::where('user_id', Auth::user()->id)->get();
 
-        return view('reporter', ['data' => $metrics]);
+        //return view('reporter', ['data' => $metrics]);
     }
 
     /**
