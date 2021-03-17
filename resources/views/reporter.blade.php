@@ -21,7 +21,7 @@
         </form>
 
         <div class="mt-3">
-            @include('metric-table')
+            @includeWhen(!empty($data), 'metric-chart-line')
         </div>
     </x-card>
 

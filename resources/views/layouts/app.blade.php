@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-primary-200">
