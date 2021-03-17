@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <x-card class="mt-6">
+    <x-card class="mt-6" width="full">
         <x-slot name="title">
             Stuff you've tracked
         </x-slot>
