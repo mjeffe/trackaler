@@ -7,5 +7,6 @@
         <li><a href="https://tailwindcss.com" target="_blank">TailwindsCSS</a></li>
         <li><a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</a></li>
         <li><a href="https://iconmonstr.com" target="_blank">Icons by iconmonstr</a></li>
+        <li><a href="https://www.highcharts.com" target="_blank">Highcharts</a></li>
     </ul>
 </x-app-layout>
