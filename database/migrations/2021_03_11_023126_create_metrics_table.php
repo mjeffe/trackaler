@@ -11,6 +11,7 @@ class CreateMetricsTable extends Migration
             $table->id()->from(100000);
             $table->bigInteger('user_id');
             $table->text('metric');
+            $table->text('units');
             $table->text('value');
             $table->timestamp('measured_on')->useCurrent();
             $table->timestamps();

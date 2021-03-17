@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Metrics extends Model
 {
@@ -11,6 +11,7 @@ class Metrics extends Model
 
     protected $fillable = [
         'metric',
+        'units',
         'value',
         'measured_on',
     ];

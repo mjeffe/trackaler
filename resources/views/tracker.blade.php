@@ -7,8 +7,8 @@
         <form method="POST" action="{{url('/metrics')}}">
             @csrf
 
-            <label class="block mt-3">
-                <x-label for="metric">Select something to track</x-label>
+            <div class="mt-3">
+                <x-label for="metric" class="block">Select something to track</x-label>
                 <x-select id="metric" name="metric">
                     <option value="weight">Weight</option>
                     <option value="calories">Calories</option>
@@ -16,20 +16,22 @@
                     <option value="fat">Fat</option>
                     <option value="protein">Protein</option>
                 </x-select>
-            </label>
+                <x-label for="units" class="sm:ml-5">Units:</x-label>
+                <x-units required />
+            </div>
 
-            <label class="block mt-3">
-                <x-label for="value">Value:</x-label>
-                <x-input type="text" id="value" name="value" required placeholder="" class="block" />
-            </label>
+            <div class="mt-3">
+                <x-label for="value" class="block">Value:</x-label>
+                <x-input type="text" id="value" name="value" required />
+            </div>
 
-            <label class="block mt-3">
+            <div class="mt-3">
                 <x-label for="measured_on">Measured on Date/Time:</x-label>
                 <x-input type="date" id="measured_on" name="measured_on"
                     value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}"
                     required
                     class="block" />
-            </label>
+            </div>
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>
         </form>

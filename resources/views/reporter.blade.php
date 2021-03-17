@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-card width="full">
         <div x-data="{ selectedMetric: 'weight' }">
-            <x-label for="metric">Select the metric you want to view</x-label>
+            <x-label for="metric" class="block">Select the metric you want to view</x-label>
             <x-select id="metric" name="metric" x-model="selectedMetric">
                 <option value="weight">Weight</option>
                 <option value="calories">Calories</option>
