@@ -1,10 +1,5 @@
 <x-app-layout>
-
-    <x-card class="mt-6" width="full">
-        <x-slot name="title">
-            Stuff you've tracked
-        </x-slot>
-
+    <x-card width="full">
         <div x-data="{ selectedMetric: 'weight' }">
             <x-label for="metric">Select the metric you want to view</x-label>
             <x-select id="metric" name="metric" x-model="selectedMetric">
@@ -24,5 +19,4 @@
             @includeWhen(!empty($data), 'metric-chart-line')
         </div>
     </x-card>
-
 </x-app-layout>

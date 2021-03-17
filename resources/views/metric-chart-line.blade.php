@@ -13,6 +13,10 @@ $seriesData = $data->map(function ($item) {
 @endphp
 <script>
 Highcharts.chart('container', {
+    chart: {
+        type: 'line',
+        zoomType: 'x'
+    },
 
     title: {
         text: '{{ Str::title($metric) }} over time'
@@ -30,32 +34,37 @@ Highcharts.chart('container', {
     },
 
     xAxis: {
+        // force one on label per day
+        //tickInterval: 24 * 3600 * 1000, // 1 day in milliseconds
         type: 'datetime',
-            /*
-        dateTimeLabelFormats: { // don't display the dummy year
-            month: '%e. %b',
-            year: '%b'
+        dateTimeLabelFormats: {
+            day: '%e %b',
+            week: '%e %b',
         },
-             */
+        /*
         title: {
             text: 'Date'
         },
+        */
         accessibility: {
             rangeDescription: 'Range: {{ $minDate }} to {{ $maxDate }}'
         }
     },
 
+    /*
     legend: {
         layout: 'vertical',
         align: 'right',
         verticalAlign: 'middle'
     },
+     */
 
     plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
+        line: {
+            dataLabels: {
+                enabled: true
             },
+            // enableMouseTracking: false
         }
     },
 

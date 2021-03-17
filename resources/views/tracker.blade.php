@@ -1,6 +1,5 @@
 <x-app-layout>
-
-    <x-card class="mt-6">
+    <x-card>
         <x-slot name="title">
             Track something
         </x-slot>
@@ -35,5 +34,4 @@
             <x-button class="mt-3" aria-label="Save">Save </x-button>
         </form>
     </x-card>
-
 </x-app-layout>
