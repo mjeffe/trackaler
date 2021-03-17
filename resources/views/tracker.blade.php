@@ -19,12 +19,12 @@
             </label>
 
             <label class="block mt-3">
-                <x-label for="value" class="text-gray-700">Value:</x-label>
+                <x-label for="value">Value:</x-label>
                 <x-input type="text" id="value" name="value" required placeholder="" class="block" />
             </label>
 
             <label class="block mt-3">
-                <x-label for="measured_on" class="text-gray-700">Measured on Date/Time:</x-label>
+                <x-label for="measured_on">Measured on Date/Time:</x-label>
                 <x-input type="date" id="measured_on" name="measured_on"
                     value="{{ date('Y-m-d') }}" max="{{ date('Y-m-d') }}"
                     required
