@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [MetricsController::class, 'index'])->name('reporter');
         //Route::get('/', [MetricsController::class, 'create']);
         Route::post('/', [MetricsController::class, 'store']);
-        Route::get('/{metric}', [MetricsController::class, 'show']);
+        Route::get('/{metric}', [MetricsController::class, 'show'])->name('reporter-metric');
     });
 });
 
