@@ -16,7 +16,7 @@
         </form>
 
         <div class="mt-3">
-            @includeWhen(!empty($data), 'metric-chart-line')
+            @includeWhen(count($data), 'metric-chart-line')
         </div>
     </x-card>
 </x-app-layout>

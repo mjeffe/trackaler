@@ -1,8 +1,10 @@
 <div id="container"></div>
+
 @php
-// extract and format data needed for this chart
+// format data needed for this chart
 $minDate = $data->min('measured_on')->toFormattedDateString();
 $maxDate = $data->max('measured_on')->toFormattedDateString();
+
 $seriesData = $data->map(function ($item) {
     return [
         // get datetime in milliseconds (for javascript)
@@ -11,6 +13,7 @@ $seriesData = $data->map(function ($item) {
     ];
 });
 @endphp
+
 <script>
 Highcharts.chart('container', {
     chart: {
