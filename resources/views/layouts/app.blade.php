@@ -18,7 +18,7 @@
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-primary-200">
+        <div class="min-h-screen bg-primary-400">
             @include('layouts.navigation')
 
             <!-- Page Content -->

@@ -1,6 +1,6 @@
 <div class="py-3">
-    <div class="max-w-7xl mx-auto sm:px-2 lg:px-3">
-        <div class="bg-white overflow-hidden shadow-sm rounded-lg">
+    <div class="max-w-full mx-auto sm:px-2 lg:px-3">
+        <div class="bg-white overflow-hidden rounded-lg">
             <div class="p-3 bg-white">
                 <nav class="inline-flex">
                     <x-nav-link :href="route('credits')" :active="request()->routeIs('credits')">
