@@ -155,7 +155,8 @@ To restore to a db in a running container
 ```
 # sail calls docker-compose, which you pass a 'service'
 # also note the -T which allows it to read from stdin
-sail exec -T pgsql psql -U $dbuser tracal < tracal.db.sql
+# sail exec -T pgsql psql -U $dbuser $dbname < tracal.db.sql
+sail exec -T pgsql psql -U tracalweb tracal < tracal.db.sql
 
 # to use docker directly, pass a container name or id
 docker exec -i tracal_pgsql_1 psql -U $dbuser tracal < tracal.db.sql
