@@ -8,7 +8,7 @@ class CreateMetricsTable extends Migration
 {
     public function up() {
         Schema::create('metrics', function (Blueprint $table) {
-            $table->id()->from(100000);
+            $table->id(); //->from(100000);
             $table->bigInteger('user_id');
             $table->text('metric');
             $table->text('units');
