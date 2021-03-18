@@ -18,8 +18,10 @@ $seriesData = $data->map(function ($item) {
 Highcharts.chart('container', {
     chart: {
         type: 'line',
-        zoomType: 'x'
+        zoomType: 'x',
     },
+
+    colors: ['blue', 'red'],
 
     title: {
         text: '{{ Str::title($metric) }} over time'
@@ -29,7 +31,6 @@ Highcharts.chart('container', {
         text: 'from {{ $minDate }} to {{ $maxDate }}'
     },
     
-
     yAxis: {
         title: {
             text: '{{ Str::title($metric) }}'
@@ -64,18 +65,38 @@ Highcharts.chart('container', {
 
     plotOptions: {
         line: {
+            /*
             dataLabels: {
                 enabled: true
             },
+             */
             // enableMouseTracking: false
+            marker: {
+                enabled: false,
+                //radius: 3,
+            },
         }
     },
+    /*
+     */
 
     series: [{
         type: 'line',
         name: '{{ $metric }}',
         data: {!! json_encode($seriesData) !!}
-    }],
+    },
+    /*
+    {
+        type: 'line',
+        name: 'goal',
+        data: [{
+            y: 170, x: 1609653600000
+        },{
+            y: 120, x: 1633237200000
+        }]
+    }
+    */
+    ],
 
     responsive: {
         rules: [{
