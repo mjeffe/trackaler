@@ -44,13 +44,13 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/tracker', function () {
-        return view('tracker');
-    })->middleware(['auth'])->name('tracker');
-
     /*
      * Metrics
      */
+    Route::group(['prefix' => 'tracker'], function () {
+        Route::get('/', [MetricsController::class, 'create'])->name('tracker');
+    });
+
     Route::group(['prefix' => 'metrics'], function () {
         Route::get('/', [MetricsController::class, 'index'])->name('reporter');
         //Route::get('/', [MetricsController::class, 'create']);
