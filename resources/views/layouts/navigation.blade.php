@@ -16,10 +16,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
+                    <x-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
                         {{ __('Tracker') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('reporter')" :active="request()->routeIs('reporter*')">
+                    <x-nav-link :href="route('reporter.index')" :active="request()->routeIs('reporter*')">
                         {{ __('Reporter') }}
                     </x-nav-link>
                 </div>
@@ -73,10 +73,10 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
+            <x-responsive-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
                 {{ __('Tracker') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('reporter')" :active="request()->routeIs('reporter')">
+            <x-responsive-nav-link :href="route('reporter.index')" :active="request()->routeIs('reporter*')">
                 {{ __('Reporter') }}
             </x-responsive-nav-link>
         </div>

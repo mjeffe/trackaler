@@ -7,7 +7,7 @@
         @if (session()->get('error'))
             <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
         @endif
-        <form method="POST" action="{{url('/metrics')}}">
+        <form method="POST" action="{{ route('tracker.store') }}">
             @csrf
 
             <div class="mt-3">

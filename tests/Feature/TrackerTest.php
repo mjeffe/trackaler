@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Feature\Tracking;
+namespace Tests\Feature;
 
+use Tests\TestCase;
 use App\Models\User;
 use App\Models\Metrics;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use App\Http\Requests\Tracker\CreateMetricRequest;
 
-class MetricsTest extends TestCase
+class TrackerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -50,7 +50,7 @@ class MetricsTest extends TestCase
 
     /** @test */
     public function it_can_submit_a_metric() {
-        $response = $this->post('/metrics', $this->data);
+        $response = $this->post('/tracker', $this->data);
 
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
@@ -64,7 +64,7 @@ class MetricsTest extends TestCase
     public function it_will_fail_with_errors_when_required_field_is_not_submitted($field) {
         unset($this->data[$field]);
 
-        $response = $this->post('/metrics', $this->data);
+        $response = $this->post('/tracker', $this->data);
 
         $response->assertSessionHasErrors($field);
         $this->assertDatabaseMissing('metrics', $this->data);
@@ -74,7 +74,7 @@ class MetricsTest extends TestCase
     public function it_will_redirect_on_validation_error() {
         unset($this->data['value']);
 
-        $response = $this->post('/metrics', $this->data);
+        $response = $this->post('/tracker', $this->data);
 
         $response->assertStatus(302);
     }

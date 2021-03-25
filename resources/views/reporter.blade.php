@@ -11,7 +11,7 @@
             </x-select>
 
             <x-button class="mt-3 ml-3" aria-label="Show">
-                <a :href="'{{ url('/metrics') }}' + '/' + selectedMetric">Show</a>
+                <a :href="'{{ url('reporter/graph') }}' + '/' + selectedMetric">Show</a>
             </x-button>
         </form>
 

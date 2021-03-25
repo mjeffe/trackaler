@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MetricsController;
+use App\Http\Controllers\ReporterController;
+use App\Http\Controllers\TrackerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,18 +45,14 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard');
     })->name('dashboard');
 
-    /*
-     * Metrics
-     */
     Route::group(['prefix' => 'tracker'], function () {
-        Route::get('/', [MetricsController::class, 'create'])->name('tracker');
+        Route::get('/', [TrackerController::class, 'create'])->name('tracker.create');
+        Route::post('/', [TrackerController::class, 'store'])->name('tracker.store');
     });
 
-    Route::group(['prefix' => 'metrics'], function () {
-        Route::get('/', [MetricsController::class, 'index'])->name('reporter');
-        //Route::get('/', [MetricsController::class, 'create']);
-        Route::post('/', [MetricsController::class, 'store']);
-        Route::get('/{metric}', [MetricsController::class, 'show'])->name('reporter-metric');
+    Route::group(['prefix' => 'reporter'], function () {
+        Route::get('/', [ReporterController::class, 'index'])->name('reporter.index');
+        Route::get('/graph/{metric}', [ReporterController::class, 'graph'])->name('reporter.graph');
     });
 });
 
