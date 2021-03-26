@@ -16,6 +16,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('configure')" :active="request()->routeIs('configure')">
+                        {{ __('Configure') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
                         {{ __('Tracker') }}
                     </x-nav-link>
@@ -72,6 +75,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('configure')" :active="request()->routeIs('configure')">
+                {{ __('Configure') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
                 {{ __('Tracker') }}

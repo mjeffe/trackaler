@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ReporterController;
 use App\Http\Controllers\TrackerController;
+use App\Http\Controllers\ReporterController;
+use App\Http\Controllers\ConfigureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::group(['prefix' => 'configure'], function () {
+        Route::get('/', [ConfigureController::class, 'index'])->name('configure');
+        Route::post('/', [ConfigureController::class, 'store'])->name('configure.store');
+    });
 
     Route::group(['prefix' => 'tracker'], function () {
         Route::get('/', [TrackerController::class, 'create'])->name('tracker.create');
