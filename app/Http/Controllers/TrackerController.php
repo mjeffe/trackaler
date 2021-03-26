@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Metrics;
+use App\Models\Metric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Tracker\CreateMetricRequest;
@@ -14,7 +14,7 @@ class TrackerController extends Controller {
     }
 
     public function store(CreateMetricRequest $request) {
-        $model = new  Metrics();
+        $model = new Metric();
 
         $model->fill($request->all());
         $model->user_id = Auth::user()->id;
