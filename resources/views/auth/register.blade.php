@@ -1,9 +1,14 @@
 <x-app-layout>
-    <x-card>
+    <x-card width="xl">
         <x-slot name="title">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            <span class="font-bold">Please</span> read the
+            <a href="{{ route('disclaimer') }}" class="font-bold underline">
+                {{ __('disclaimer') }}
             </a>
+            before you register!
+            <div class="text-sm">
+                It actually contains some stuff you might want to know about this site
+            </div>
         </x-slot>
 
         <!-- Validation Errors -->
