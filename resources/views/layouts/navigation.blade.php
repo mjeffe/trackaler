@@ -20,10 +20,10 @@
                         {{ __('Configure') }}
                     </x-nav-link>
                     <x-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
-                        {{ __('Tracker') }}
+                        {{ __('Track') }}
                     </x-nav-link>
                     <x-nav-link :href="route('reporter.index')" :active="request()->routeIs('reporter*')">
-                        {{ __('Reporter') }}
+                        {{ __('View') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -80,10 +80,10 @@
                 {{ __('Configure') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
-                {{ __('Tracker') }}
+                {{ __('Track') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('reporter.index')" :active="request()->routeIs('reporter*')">
-                {{ __('Reporter') }}
+                {{ __('View') }}
             </x-responsive-nav-link>
         </div>
 

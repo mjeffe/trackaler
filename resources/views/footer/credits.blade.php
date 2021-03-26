@@ -4,11 +4,11 @@
             The following open source tools have been used in this project
         </x-slot>
         <ul class="list-disc">
-            <li><a href="https://laravel.com" target="_blank">Laravel</a></li>
-            <li><a href="https://tailwindcss.com" target="_blank">TailwindsCSS</a></li>
-            <li><a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</a></li>
-            <li><a href="https://iconmonstr.com" target="_blank">Icons by iconmonstr</a></li>
-            <li><a href="https://www.highcharts.com" target="_blank">Highcharts</a></li>
+            <li><x-a href="https://laravel.com" target="_blank">Laravel</x-a></li>
+            <li><x-a href="https://tailwindcss.com" target="_blank">TailwindsCSS</x-a></li>
+            <li><x-a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</x-a></li>
+            <li><x-a href="https://iconmonstr.com" target="_blank">Icons by iconmonstr</x-a></li>
+            <li><x-a href="https://www.highcharts.com" target="_blank">Highcharts</x-a></li>
         </ul>
     </x-card>
 </x-app-layout>

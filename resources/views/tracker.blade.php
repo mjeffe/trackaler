@@ -1,9 +1,8 @@
 <x-app-layout>
-    <x-card>
-        <x-slot name="title">
-            Track something
-        </x-slot>
-
+    <div class="text-2xl text-gray-500">
+        Track something
+    </div>
+    <x-card width="full">
         @if (session()->get('error'))
             <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
         @endif
@@ -11,7 +10,7 @@
             @csrf
 
             <div class="mt-3">
-                <x-label for="metric" class="block">Select something to track</x-label>
+                <!-- x-label for="metric" class="block">Select something to track</x-label -->
                 <x-select id="metric" name="metric">
                     <option value="weight" {{ old('metric') == 'weight' ? "selected" : "" }}>Weight</option>
                     <option value="calories" {{ old('metric') == 'calories' ? "selected" : "" }}>Calories</option>
