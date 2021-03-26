@@ -35,8 +35,12 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/credits', function () {
-    return view('credits');
+    return view('footer.credits');
 })->name('credits');
+
+Route::get('/disclaimer', function () {
+    return view('footer.disclaimer');
+})->name('disclaimer');
 
 //
 // Authenticated routes
