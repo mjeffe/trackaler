@@ -1,3 +1,6 @@
+/*
+ * After modifying this run `sail npm run dev`
+ */
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
@@ -19,6 +22,14 @@ module.exports = {
                 secondary: colors.orange,
                 accent1: colors.teal,
                 accent2: colors.pink,
+            },
+            listStyleType: {
+                none: 'none',
+                disc: 'disc',
+                square: 'square',
+                decimal: 'decimal',
+                alpha: 'upper-alpha',
+                roman: 'upper-roman',
             },
         },
     },
