@@ -1,3 +1,3 @@
-<x-guest-layout>
+<x-app-layout>
     Tracal - a site to track stuff
-</x-guest-layout>
+</x-app-layout>

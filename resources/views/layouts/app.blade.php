@@ -15,11 +15,17 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        @auth
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        @endauth
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-primary-400">
-            @include('layouts.navigation')
+            @if (Auth::check())
+                @include('layouts.navigation')
+            @else
+                @include('layouts.guest-navigation')
+            @endif
 
             <!-- Page Content -->
             <main>
