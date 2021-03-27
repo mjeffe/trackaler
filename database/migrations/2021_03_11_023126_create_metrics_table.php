@@ -10,9 +10,9 @@ class CreateMetricsTable extends Migration
         Schema::create('metrics', function (Blueprint $table) {
             $table->id(); //->from(100000);
             $table->bigInteger('user_id');
-            $table->text('metric');
-            $table->text('units');
-            $table->text('value');
+            $table->bigInteger('tracker_id');
+            $table->text('value_integer_part');
+            $table->text('value_decimal_part')->nullable();
             $table->timestamp('measured_on')->useCurrent();
             $table->timestamps();
         });
