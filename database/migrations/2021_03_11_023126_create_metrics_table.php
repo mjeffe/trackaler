@@ -11,8 +11,7 @@ class CreateMetricsTable extends Migration
             $table->id(); //->from(100000);
             $table->bigInteger('user_id');
             $table->bigInteger('tracker_id');
-            $table->text('value_integer_part');
-            $table->text('value_decimal_part')->nullable();
+            $table->string('value', 20);
             $table->timestamp('measured_on')->useCurrent();
             $table->timestamps();
         });

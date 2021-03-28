@@ -12,9 +12,8 @@ class CreateTrackersTable extends Migration {
             $table->string('name', 80);
             $table->string('description', 400);
             $table->string('display_units', 20);  // for display only
-            $table->integer('goal_integer_part')->nullable();
-            $table->integer('goal_decimal_part')->nullable();
-            $table->string('locale_decimal_char', 1);  // pull from the browser on create?
+            $table->string('goal_value', 20)->nullable();
+            $table->timestamp('goal_timestamp')->nullable();
             $table->timestamps();
         });
     }
