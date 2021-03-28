@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Tracker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Metric extends Model
-{
+class Metric extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'metric',
-        'units',
+        'user_id',
+        'tracker_id',
         'value',
         'measured_on',
     ];
@@ -24,4 +24,11 @@ class Metric extends Model
     protected $casts = [
         'measured_on' => 'datetime',
     ];
+
+    /*
+     * relationships
+     */
+    public function tracker() {
+        return $this->belongsTo(Tracker::class);
+    }
 }

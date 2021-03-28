@@ -17,16 +17,13 @@ class ReporterController extends Controller {
     }
 
     public function graph(Request $request, $metric) {
-        $trackerId = Tracker::where('name', $metric)->firstOrFail()->id;
-
-        $metrics = Metric::where('user_id', Auth::user()->id)
-            ->where('tracker_id', $trackerId)
-            ->orderBy('measured_on')
-            ->get();
+        $tracker = Tracker::where('name', $metric)
+            ->with('metrics')
+            ->firstOrFail();
 
         $data = [
             'metric' => $metric,
-            'data' => $metrics,
+            'data' => $tracker->metrics,
         ];
 
         return view('reporter', $data);
