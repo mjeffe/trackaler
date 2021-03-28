@@ -18,7 +18,10 @@ class ReporterController extends Controller {
 
     public function graph(Request $request, $metric) {
         $tracker = Tracker::where('name', $metric)
-            ->with('metrics')
+            //->with('metricsOrdered') // can't get this to work
+            ->with(['metrics' => function ($query) {
+                $query->orderBy('measured_on');
+            }])
             ->firstOrFail();
 
         $data = [

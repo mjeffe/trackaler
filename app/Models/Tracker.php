@@ -29,7 +29,10 @@ class Tracker extends Model {
     public function metrics() {
         return $this->hasMany(Metric::class);
     }
-    /* can use this in the controller or may want to add it to the relationship
+    public function metricsOrdered() {
+        return $this->hasMany(Metric::class)->orderBy('measured_on');
+    }
+    /* Or use this in the controller
     ->with(['metrics' => function ($query) {
         $query->orderBy('measured_on');
     }])
