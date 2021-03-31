@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateTrackersTable extends Migration {
     public function up() {
         Schema::create('trackers', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(1000);
             $table->bigInteger('user_id');
             $table->string('name', 80);
             $table->string('description', 400);
