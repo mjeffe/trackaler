@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TrackController;
+use App\Http\Controllers\MetricController;
 use App\Http\Controllers\TrackerController;
 use App\Http\Controllers\ReporterController;
-use App\Http\Controllers\ConfigureController;
+//use App\Http\Controllers\ConfigureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,14 +64,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/', [TrackerController::class, 'store'])->name('tracker.store');
         Route::get('/{tracker_id}/edit', [TrackerController::class, 'edit'])->name('tracker.edit');
         Route::get('/{tracker_id}/delete', [TrackerController::class, 'delete'])->name('tracker.delete');
-    });
 
-    Route::group(['prefix' => 'metric'], function () {
-        //Route::get('/', [MetricController::class, 'index'])->name('metric');
-        Route::get('/create', [MetricController::class, 'create'])->name('metric.create');
-        Route::post('/', [MetricController::class, 'store'])->name('metric.store');
-        Route::get('/{metric_id}/edit', [MetricController::class, 'edit'])->name('metric.edit');
-        Route::get('/{metric_id}/delete', [MetricController::class, 'delete'])->name('metric.delete');
+        Route::group(['prefix' => '/{tracker_id}/metric'], function () {
+            //Route::get('/', [MetricController::class, 'index'])->name('metric');
+            Route::get('/create', [MetricController::class, 'create'])->name('metric.create');
+            Route::post('/', [MetricController::class, 'store'])->name('metric.store');
+            Route::get('/{metric_id}/edit', [MetricController::class, 'edit'])->name('metric.edit');
+            Route::get('/{metric_id}/delete', [MetricController::class, 'delete'])->name('metric.delete');
+        });
     });
 
     Route::group(['prefix' => 'reporter'], function () {

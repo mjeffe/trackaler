@@ -15,7 +15,7 @@
             <div>
                 {{ $t->description }}
             </div>
-            <a href="{{ route('metric.create') }}" aria-label="Track">
+            <a href="{{ route('metric.create', $t->id) }}" aria-label="Track">
                 <x-button class="mt-3 h-5" aria-label="Track">Track</x-button>
             </a>
 
