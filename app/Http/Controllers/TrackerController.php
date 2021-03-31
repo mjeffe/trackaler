@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Metric;
 use App\Models\Tracker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Tracker\CreateMetricRequest;
+use App\Http\Requests\Tracker\CreateTrackerRequest;
 
 class TrackerController extends Controller {
 
@@ -26,41 +25,37 @@ class TrackerController extends Controller {
     }
 
     public function store(CreateTrackerRequest $request) {
-        $trackerId = Tracker::where('user_id', Auth::user()->id)
+        $request->flash();
+        $tracker = Tracker::where('user_id', Auth::user()->id)
             ->where('metric', $request->metric)
-            ->firstOrFail()
-            ->id;
+            ->first();
 
-        $model = new Metric();
+        if (!empty($tracker)) {
+            return back()->withError('That tracker already exists')->withInput();
+        }
+
+        $model = new Tracker();
 
         $model->fill($request->all());
         $model->user_id = Auth::user()->id;
-        $model->tracker_id = $trackerId;
         $model->save();
 
-        $request->flash();
-        return view('tracker');
-        // on error
-        //return back()->withInput();
+        return $this->index();
     }
 
-    // metric store
-    public function metricStore(CreateMetricRequest $request) {
-        $trackerId = Tracker::where('user_id', Auth::user()->id)
-            ->where('name', $request->metric)
-            ->firstOrFail()
-            ->id;
+    public function delete(Request $request, $tracker_id) {
+        $tracker = Tracker::where('user_id', Auth::user()->id)->find($tracker_id);
 
-        $model = new Metric();
+        if (empty($tracker)) {
+            return back()->withError('You do not have permissions on that tracker')->withInput();
+        }
 
-        $model->fill($request->all());
-        $model->user_id = Auth::user()->id;
-        $model->tracker_id = $trackerId;
-        $model->save();
+        $tracker->delete();
 
-        $request->flash();
-        return view('tracker');
-        // on error
-        //return back()->withInput();
+        return $this->index();
+    }
+
+    public function edit(Request $request, $tracker_id) {
+        return 'Unimplemented';
     }
 }

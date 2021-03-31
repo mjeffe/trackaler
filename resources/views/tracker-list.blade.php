@@ -15,17 +15,17 @@
             <div>
                 {{ $t->description }}
             </div>
-            <x-button type="button" class="mt-3 h-5" aria-label="Track">
-                Track
-            </x-button>
+            <a href="{{ route('metric.create') }}" aria-label="Track">
+                <x-button class="mt-3 h-5" aria-label="Track">Track</x-button>
+            </a>
 
-            <x-button type="button" class="mt-3 h-5" aria-label="Delete">
-                Delete
-            </x-button>
+            <a href="{{ route('tracker.delete', $t->id) }}" aria-label="Delete">
+                <x-button class="mt-3 h-5" aria-label="Delete this Tracker">Delete</x-button>
+            </a>
 
-            <x-button type="button" class="mt-3 h-5" aria-label="Edit">
-                Edit
-            </x-button>
+            <a href="{{ route('tracker.edit', $t->id) }}" aria-label="Edit">
+                <x-button class="mt-3 h-5" aria-label="Edit this Tracker">Edit</x-button>
+            </a>
         </x-card>
     @endforeach
 @else
