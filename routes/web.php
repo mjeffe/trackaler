@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrackController;
 use App\Http\Controllers\TrackerController;
 use App\Http\Controllers\ReporterController;
 use App\Http\Controllers\ConfigureController;
@@ -56,7 +57,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'tracker'], function () {
-        Route::get('/', [TrackerController::class, 'create'])->name('tracker.create');
+        Route::get('/', [TrackerController::class, 'index'])->name('tracker');
+        Route::get('/create', [TrackerController::class, 'create'])->name('tracker.create');
         Route::post('/', [TrackerController::class, 'store'])->name('tracker.store');
     });
 

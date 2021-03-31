@@ -25,7 +25,27 @@ class TrackerController extends Controller {
         return view('tracker-create');
     }
 
-    public function store(CreateMetricRequest $request) {
+    public function store(CreateTrackerRequest $request) {
+        $trackerId = Tracker::where('user_id', Auth::user()->id)
+            ->where('name', $request->metric)
+            ->firstOrFail()
+            ->id;
+
+        $model = new Metric();
+
+        $model->fill($request->all());
+        $model->user_id = Auth::user()->id;
+        $model->tracker_id = $trackerId;
+        $model->save();
+
+        $request->flash();
+        return view('tracker');
+        // on error
+        //return back()->withInput();
+    }
+
+    // metric store
+    public function metricStore(CreateMetricRequest $request) {
         $trackerId = Tracker::where('user_id', Auth::user()->id)
             ->where('name', $request->metric)
             ->firstOrFail()
