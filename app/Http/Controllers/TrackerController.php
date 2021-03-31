@@ -27,7 +27,7 @@ class TrackerController extends Controller {
 
     public function store(CreateTrackerRequest $request) {
         $trackerId = Tracker::where('user_id', Auth::user()->id)
-            ->where('name', $request->metric)
+            ->where('metric', $request->metric)
             ->firstOrFail()
             ->id;
 

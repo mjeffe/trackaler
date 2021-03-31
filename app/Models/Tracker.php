@@ -11,8 +11,7 @@ class Tracker extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'name',
+        'metric',
         'description',
         'display_units',
         'goal_value',

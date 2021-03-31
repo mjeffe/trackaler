@@ -1,4 +1,4 @@
-id|user_id|name|description|display_units|goal_value|goal_timestamp
+id|user_id|metric|description|display_units|goal_value|goal_timestamp
 1|1|weight|Track my weight loss|lbs|120|2021-10-01
 2|1|calories|Track my daily calorie intake|cal|1200|
 3|1|daily runs|Track how far I run each day|mi||

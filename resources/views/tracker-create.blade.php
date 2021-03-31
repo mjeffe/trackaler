@@ -10,12 +10,12 @@
             @csrf
 
             <div class="mt-3">
-                <x-label for="name" class="block">Metric:</x-label>
+                <x-label for="metric" class="block">Metric:</x-label>
                 @error('name')
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
-                <x-input type="text" id="name" name="name"
-                    value="{{ $errors->has('name') ? old('name') : '' }}"
+                <x-input type="text" id="metric" name="metric"
+                    value="{{ $errors->has('metric') ? old('metric') : '' }}"
                     class="w-36"
                     required />
             </div>

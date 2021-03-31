@@ -2,7 +2,7 @@
     @foreach ($trackers as $t)
         <x-card width="md" class="mb-3">
             <div>
-                <span class="font-bold">{{ Str::title($t->name) }}</span> ({{ $t->display_units }})
+                <span class="font-bold">{{ Str::title($t->metric) }}</span> ({{ $t->display_units }})
                 @if (!empty($t->goal_value))
                     <div>
                         <span class="font-bold">Goal: </span> {{ $t->goal_value }}

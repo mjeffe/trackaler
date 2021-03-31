@@ -26,7 +26,7 @@ class CreateMetricRequest extends FormRequest
      */
     public function rules() {
         return [
-            'name' => 'required|string|size:80',
+            'metric' => 'required|string|size:80',
             'description' => 'required|string|size:400',
             'display_units' => 'required|string|size:20',
             'goal_value' => 'string|size:20|numeric',
