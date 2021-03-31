@@ -10,8 +10,19 @@ use App\Http\Requests\Tracker\CreateMetricRequest;
 
 class TrackerController extends Controller {
 
+    public function index() {
+        $trackers = Tracker::where('user_id', Auth::user()->id)
+            ->get();
+
+        $data = [
+            'trackers' => $trackers,
+        ];
+
+        return view('tracker', $data);
+    }
+
     public function create() {
-        return view('tracker');
+        return view('tracker-create');
     }
 
     public function store(CreateMetricRequest $request) {

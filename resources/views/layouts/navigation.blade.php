@@ -19,7 +19,7 @@
                     <x-nav-link :href="route('configure')" :active="request()->routeIs('configure')">
                         {{ __('Configure') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
+                    <x-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
                         {{ __('Track') }}
                     </x-nav-link>
                     <x-nav-link :href="route('reporter.index')" :active="request()->routeIs('reporter*')">
@@ -79,7 +79,7 @@
             <x-responsive-nav-link :href="route('configure')" :active="request()->routeIs('configure')">
                 {{ __('Configure') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('tracker.create')" :active="request()->routeIs('tracker.create')">
+            <x-responsive-nav-link :href="route('tracker')" :active="request()->routeIs('tracker')">
                 {{ __('Track') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('reporter.index')" :active="request()->routeIs('reporter*')">
