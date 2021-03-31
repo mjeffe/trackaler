@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Dev;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class RefUnitsSeeder extends Seeder {
+class TrackersSeeder extends Seeder {
     public function run() {
-        $table = 'ref_units';
+        $table = 'trackers';
 
         DB::table($table)->truncate();
 
-        $rows = SimpleExcelReader::create(database_path("data/ref/{$table}.csv"))
+        $rows = SimpleExcelReader::create(database_path("data/dev/{$table}.csv"))
             ->useDelimiter('|')
             ->getRows();
 

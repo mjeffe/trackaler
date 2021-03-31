@@ -6,9 +6,12 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
     public function run() {
-        // \App\Models\User::factory(10)->create();
         $this->call([
-            RefUnitsSeeder::class,
+            Ref\RefUnitsSeeder::class,
+            // load order is important for referential integrity
+            Dev\UsersSeeder::class,
+            Dev\TrackersSeeder::class,
+            Dev\MetricsSeeder::class,
         ]);
     }
 }
