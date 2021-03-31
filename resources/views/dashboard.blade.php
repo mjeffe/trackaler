@@ -4,18 +4,13 @@
     </div>
 
     <x-card width="full">
-        The functionality of this site is simple.
-
-        <ul class="list-disc pl-6">
-            <li>
-                First <x-a href="{{ route('tracker') }}">configure</x-a> what you want to track
-            </li>
-            <li>
-                Then <x-a href="{{ route('tracker') }}">enter data</x-a>
-            </li>
-            <li>
-                Finally <x-a href="{{ route('reporter.index') }}">view</x-a> your progress
-            </li>
-        </ul>
+        <p>
+            The functionality of this site is simple.
+        </p>
+        <p>
+            First, <x-a href="{{ route('tracker') }}">configure</x-a> what you want to track.
+            Then <x-a href="{{ route('tracker') }}">enter data</x-a>. At any time you can
+            <x-a href="{{ route('reporter.index') }}">view</x-a> your progress.
+        </p>
     </x-card>
 </x-app-layout>
