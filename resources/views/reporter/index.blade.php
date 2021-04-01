@@ -19,7 +19,7 @@
     @if(count($data))
     <x-card width="full">
         <div class="mt-3">
-            @includeWhen(count($data), 'metric-chart-line')
+            @includeWhen(count($data), 'metrics.chart-line')
         </div>
     </x-card>
     @endif

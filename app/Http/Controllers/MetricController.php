@@ -13,7 +13,7 @@ class MetricController extends Controller {
     public function create(Request $request, $tracker_id) {
         $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
 
-        return view('metric-create')->with('tracker', $tracker);
+        return view('metrics.create')->with('tracker', $tracker);
     }
 
     public function store(CreateMetricRequest $request, $tracker_id) {
@@ -33,11 +33,11 @@ class MetricController extends Controller {
 
     public function delete(Request $request, $metric_id) {
         return 'Unimplemented';
-        //return view('metric-create');
+        //return view('metrics.create');
     }
 
     public function edit(Request $request, $metric_id) {
         return 'Unimplemented';
-        //return view('metric-create');
+        //return view('metrics.create');
     }
 }
