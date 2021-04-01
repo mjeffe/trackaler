@@ -4,10 +4,11 @@
             <div>
                 <span class="font-bold">{{ Str::title($t->metric) }}</span> ({{ $t->display_units }})
                 @if (!empty($t->goal_value))
-                    <div>
+                    <div x-data={}>
                         <span class="font-bold">Goal: </span> {{ $t->goal_value }}
                         @if ($t->goal_timestamp)
-                            <span class="font-bold pl-4">By: </span>{{ $t->goal_timestamp }}
+                            <span class="font-bold pl-4">By: </span>
+                            <span x-html="localDateStr({{ $t->goal_timestamp->valueOf() }})"></span>
                         @endif
                     </div>
                 @endif

@@ -18,6 +18,15 @@ class Tracker extends Model {
         'goal_timestamp',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'goal_timestamp' => 'datetime',
+    ];
+
     /*
      * relationships
      */
