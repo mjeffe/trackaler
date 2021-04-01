@@ -9,5 +9,5 @@
     @if (session()->get('error'))
         <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
     @endif
-    @include('tracker-list')
+    @include('tracker.list')
 </x-app-layout>

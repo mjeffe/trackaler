@@ -17,11 +17,11 @@ class TrackerController extends Controller {
             'trackers' => $trackers,
         ];
 
-        return view('tracker', $data);
+        return view('tracker.index', $data);
     }
 
     public function create() {
-        return view('tracker-create');
+        return view('tracker.create');
     }
 
     public function store(CreateTrackerRequest $request) {
