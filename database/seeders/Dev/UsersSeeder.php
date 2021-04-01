@@ -13,11 +13,13 @@ class UsersSeeder extends Seeder {
         $table = 'users';
 
         DB::table($table)->truncate();
-        DB::table($table)->insert([
-            'id' => 1,  // this is used by other dev data csv files in database/data/dev
-            'name' => 'Asdf Foobar',
-            'email' => 'asdf@asdf.com',
-            'password' => password_hash('Welcome', PASSWORD_DEFAULT),
-        ]);
+
+        $rows = SimpleExcelReader::create(database_path("data/dev/{$table}.csv"))
+            ->useDelimiter('|')
+            ->getRows();
+
+        $rows->each(function(array $rowProperties) use ($table) {
+            DB::table($table)->insert($rowProperties);
+        });
     }
 }
