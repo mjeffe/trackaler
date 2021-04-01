@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Metrics;
+use App\Models\Tracker;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Http\Requests\Tracker\CreateMetricRequest;
+use App\Http\Requests\Tracker\CreateTrackerRequest;
 
 class TrackerTest extends TestCase
 {
@@ -16,19 +16,14 @@ class TrackerTest extends TestCase
     public function setUp(): void {
         parent::setUp();
 
-        $this->data = [
-            'metric' => 'weight',
-            'units' => 'lbs',
-            'value' => '150',
-            'measured_on' => date('Y-m-d 00:00:00'), // dates are stored as datetime
-        ];
+        $this->data = Tracker::factory()->make()->toArray();
 
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
     }
 
     public function requiredFieldsProvider() {
-        $rules = (new CreateMetricRequest())->rules();
+        $rules = (new CreateTrackerRequest())->rules();
 
         $fields = [];
         foreach (array_keys($rules) as $field) {
@@ -42,19 +37,37 @@ class TrackerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_render_add_metric_screen() {
+    public function it_can_render_tracker_screen() {
         $response = $this->get('/tracker');
 
         $response->assertStatus(200);
     }
 
     /** @test */
-    public function it_can_submit_a_metric() {
+    public function it_can_render_the_create_tracker_screen() {
+        $response = $this->get('/tracker/create');
+
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function it_can_create_a_new_tracker() {
         $response = $this->post('/tracker', $this->data);
 
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
-        $this->assertDatabaseHas('metrics', $this->data);
+        $this->assertDatabaseHas('trackers', $this->data);
+    }
+
+    /** @test */
+    public function it_can_create_a_new_tracker_with_goal() {
+        $this->data = Tracker::factory()->withGoal()->make()->toArray();
+
+        $response = $this->post('/tracker', $this->data);
+
+        $response->assertStatus(200);
+        $response->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('trackers', $this->data);
     }
 
     /**
@@ -67,15 +80,27 @@ class TrackerTest extends TestCase
         $response = $this->post('/tracker', $this->data);
 
         $response->assertSessionHasErrors($field);
-        $this->assertDatabaseMissing('metrics', $this->data);
+        $this->assertDatabaseMissing('trackers', $this->data);
     }
 
     /** @test */
     public function it_will_redirect_on_validation_error() {
-        unset($this->data['value']);
+        unset($this->data['metric']);
 
         $response = $this->post('/tracker', $this->data);
 
         $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_will_render_a_list_of_all_trackers() {
+        $trackers = Tracker::factory()->count(3)->for($this->user)->create();
+
+        $response = $this->get('/tracker');
+
+        $response->assertStatus(200);
+        foreach ($trackers as $tracker) {
+            $response->assertSeeText($tracker->description);
+        }
     }
 }

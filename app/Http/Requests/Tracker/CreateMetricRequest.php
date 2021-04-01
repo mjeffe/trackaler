@@ -26,7 +26,7 @@ class CreateMetricRequest extends FormRequest
      */
     public function rules() {
         return [
-            'value' => 'required|string',
+            'value' => 'required|string|max:20',
             'measured_on' => 'required|date',
         ];
     }

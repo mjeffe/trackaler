@@ -29,7 +29,7 @@ class CreateTrackerRequest extends FormRequest
             'metric' => 'required|string|max:80',
             'description' => 'required|string|max:400',
             'display_units' => 'required|string|max:20',
-            'goal_value' => 'nullable|string|size:20|numeric',
+            'goal_value' => 'nullable|numeric',
             'goal_timestamp' => 'nullable|date',
         ];
     }
