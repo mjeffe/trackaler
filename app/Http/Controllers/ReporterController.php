@@ -11,7 +11,7 @@ use App\Http\Requests\Tracker\CreateMetricRequest;
 class ReporterController extends Controller {
 
     public function index() {
-        return view('reporter', [
+        return view('reporter.index', [
             'data' => [],
         ]);
     }
@@ -29,6 +29,6 @@ class ReporterController extends Controller {
             'data' => $tracker->metrics,
         ];
 
-        return view('reporter', $data);
+        return view('reporter.index', $data);
     }
 }
