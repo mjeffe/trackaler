@@ -16,7 +16,7 @@ class TrackerTest extends TestCase
     public function setUp(): void {
         parent::setUp();
 
-        $this->data = Tracker::factory()->make()->toArray();
+        $this->data = Tracker::factory()->make()->getAttributes();
 
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
@@ -61,7 +61,7 @@ class TrackerTest extends TestCase
 
     /** @test */
     public function it_can_create_a_new_tracker_with_goal() {
-        $this->data = Tracker::factory()->withGoal()->make()->toArray();
+        $this->data = Tracker::factory()->withGoal()->make()->getAttributes();
 
         $response = $this->post('/tracker', $this->data);
 
