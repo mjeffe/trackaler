@@ -10,8 +10,7 @@ use App\Http\Requests\Tracker\CreateTrackerRequest;
 class TrackerController extends Controller {
 
     public function index() {
-        $trackers = Tracker::where('user_id', Auth::user()->id)
-            ->get();
+        $trackers = Tracker::where('user_id', Auth::user()->id)->get();
 
         $data = [
             'trackers' => $trackers,
@@ -21,7 +20,15 @@ class TrackerController extends Controller {
     }
 
     public function create() {
-        return view('tracker.create');
+        $tracker = new Tracker();
+
+        return view('tracker.create', compact('tracker'));
+    }
+
+    public function edit(Request $request, $tracker_id) {
+        $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
+
+        return view('tracker.create', compact('tracker'));
     }
 
     public function store(CreateTrackerRequest $request) {
@@ -34,11 +41,22 @@ class TrackerController extends Controller {
             return back()->withError('That tracker already exists')->withInput();
         }
 
-        $model = new Tracker();
+        $tracker = new Tracker();
 
-        $model->fill($request->all());
-        $model->user_id = Auth::user()->id;
-        $model->save();
+        $tracker->fill($request->all());
+        $tracker->user_id = Auth::user()->id;
+        $tracker->save();
+
+        return $this->index();
+    }
+
+    public function update(CreateTrackerRequest $request, $tracker_id) {
+        $request->flash();
+        $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
+
+        $tracker->fill($request->all());
+        $tracker->user_id = Auth::user()->id;
+        $tracker->save();
 
         return $this->index();
     }
@@ -53,9 +71,5 @@ class TrackerController extends Controller {
         $tracker->delete();
 
         return $this->index();
-    }
-
-    public function edit(Request $request, $tracker_id) {
-        return 'Unimplemented';
     }
 }

@@ -6,8 +6,15 @@
         @if (session()->get('error'))
             <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
         @endif
-        <form method="POST" action="{{ route('tracker.store') }}">
-            @csrf
+
+        @if ($tracker->exists)
+            <form method="POST" action="{{ route('tracker.update', $tracker->id) }}">
+                @method('put')
+                @csrf
+        @else
+            <form method="POST" action="{{ route('tracker.store') }}">
+                @csrf
+        @endif
 
             <div class="mt-3">
                 <x-label for="metric" class="block">Metric: *</x-label>
@@ -15,7 +22,7 @@
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="text" id="metric" name="metric"
-                    value="{{ $errors->has('metric') ? old('metric') : '' }}"
+                    value="{{ old('metric') ?? $tracker->metric }}"
                     class="w-36"
                     required />
             </div>
@@ -26,7 +33,7 @@
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="text" id="display_units" name="display_units"
-                    value="{{ $errors->has('display_units') ? old('display_units') : '' }}"
+                    value="{{ old('display_units') ?? $tracker->display_units }}"
                     class="w-36"
                     required />
             </div>
@@ -37,7 +44,7 @@
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="text" id="description" name="description"
-                    value="{{ $errors->has('description') ? old('description') : '' }}"
+                    value="{{ old('description') ?? $tracker->description }}"
                     class="w-36"
                     required />
             </div>
@@ -48,7 +55,7 @@
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="text" id="goal_value" name="goal_value"
-                    value="{{ $errors->has('goal_value') ? old('goal_value') : '' }}"
+                    value="{{ old('goal_value') ?? $tracker->goal_value }}"
                     class="w-36"
                     />
             </div>
@@ -59,7 +66,7 @@
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="date" id="goal_timestamp" name="goal_timestamp"
-                    value="{{ $errors->has('goal_timestamp') ? old('goal_timestamp') : '' }}"
+                    value="{{ old('goal_timestamp') ?? $tracker->goal_timestamp }}"
                     class="w-36"
                     />
             </div>

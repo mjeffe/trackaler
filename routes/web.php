@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [TrackerController::class, 'index'])->name('tracker');
         Route::get('/create', [TrackerController::class, 'create'])->name('tracker.create');
         Route::post('/', [TrackerController::class, 'store'])->name('tracker.store');
+        Route::put('/{tracker_id}', [TrackerController::class, 'update'])->name('tracker.update');
         Route::get('/{tracker_id}/edit', [TrackerController::class, 'edit'])->name('tracker.edit');
         Route::get('/{tracker_id}/delete', [TrackerController::class, 'delete'])->name('tracker.delete');
 
