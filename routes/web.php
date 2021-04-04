@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
             //Route::get('/', [MetricController::class, 'index'])->name('metric');
             Route::get('/create', [MetricController::class, 'create'])->name('metric.create');
             Route::post('/', [MetricController::class, 'store'])->name('metric.store');
+            Route::put('/{metric_id}', [MetricController::class, 'update'])->name('metric.update');
             Route::get('/{metric_id}/edit', [MetricController::class, 'edit'])->name('metric.edit');
             Route::get('/{metric_id}/delete', [MetricController::class, 'delete'])->name('metric.delete');
         });

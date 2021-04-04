@@ -16,10 +16,10 @@
         </x-button>
     </form>
 
-    @if(count($data))
+    @if(count($tracker->metrics))
     <x-card width="full">
         <div class="mt-3">
-            @includeWhen(count($data), 'reporter.chart-line')
+            @includeWhen(count($tracker->metrics), 'reporter.chart-line')
         </div>
     </x-card>
     @endif

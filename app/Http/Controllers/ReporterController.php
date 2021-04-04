@@ -12,7 +12,7 @@ class ReporterController extends Controller {
 
     public function index() {
         return view('reporter.index', [
-            'data' => [],
+            'tracker' => new Tracker(),
         ]);
     }
 
@@ -24,11 +24,6 @@ class ReporterController extends Controller {
             }])
             ->firstOrFail();
 
-        $data = [
-            'metric' => $metric,
-            'data' => $tracker->metrics,
-        ];
-
-        return view('reporter.index', $data);
+        return view('reporter.index', compact('tracker'));
     }
 }
