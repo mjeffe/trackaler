@@ -2,8 +2,8 @@
 
 @php
 // format data needed for this chart
-$minDate = $tracker->metrics->min('measured_on')->toFormattedDateString();
-$maxDate = $tracker->metrics->max('measured_on')->toFormattedDateString();
+$minDate = $tracker->metrics->first()->measured_on->toFormattedDateString();
+$maxDate = $tracker->metrics->last()->measured_on->toFormattedDateString();
 
 // Values are stored as strings. If we convert here in php, it
 // would use the server's locale. Instead we insert the data
@@ -19,10 +19,35 @@ $seriesData = $tracker->metrics->map(function ($item) {
         'y' => $item->value,
     ];
 });
+
+$goalSeriesData = [];
+if ($tracker->goal_value) {
+    //
+    // If we have no goal end date, then simply show a horizontal line at the goal value
+    // starting at the date of the first metric and ending at the date of the last metric.
+    //
+    // If we have a goal end date, then start the goal series at the value and date of
+    // the first metric, and end it at the goal date and value.
+    //
+    $start = [
+        'x' => $tracker->metrics->first()->measured_on->valueOf(),
+        'y' => $tracker->goal_timestamp
+                    ? $tracker->metrics->first()->value
+                    : $tracker->goal_value
+    ];
+    $end = [
+        'x' => $tracker->goal_timestamp
+                    ? $tracker->goal_timestamp->valueOf()
+                    : $tracker->metrics->last()->measured_on->valueOf(),
+        'y' => $tracker->goal_value
+    ];
+    $goalSeriesData = [$start,  $end];
+}
 @endphp
 
 <script>
 const seriesRawData = {!! json_encode($seriesData) !!}
+const goalSeriesRawData = {!! json_encode($goalSeriesData) !!}
 const seriesData = seriesRawData.map((row) => {
     return {
         'metric_id': row.metric_id,
@@ -31,6 +56,13 @@ const seriesData = seriesRawData.map((row) => {
         'y': parseFloat(row.y),
     };
 }); 
+const goalSeriesData = goalSeriesRawData.map((row) => {
+    return {
+        'tracker_id': row.tracker_id,
+        'x': row.x,
+        'y': parseFloat(row.y),
+    };
+});
  
 Highcharts.chart('container', {
     chart: {
@@ -51,7 +83,10 @@ Highcharts.chart('container', {
     yAxis: {
         title: {
             text: '{{ Str::title($tracker->metric) }}'
-        }
+        },
+        labels: {
+            format: '{value} {{ $tracker->display_units }}'
+        },
     },
 
     xAxis: {
@@ -113,18 +148,14 @@ Highcharts.chart('container', {
         name: '{{ $tracker->metric }}',
         data: seriesData,
     },
-    /*
+    @if (!empty($goalSeriesData))
     {
         type: 'line',
         name: 'goal',
         color: 'red',
-        data: [{
-            x: 1609653600000, y: 170
-        },{
-            x: 1633237200000, y: 120
-        }]
+        data: goalSeriesData,
     }
-    */
+    @endif
     ],
 
     responsive: {

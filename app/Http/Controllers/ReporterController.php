@@ -11,19 +11,28 @@ use App\Http\Requests\Tracker\CreateMetricRequest;
 class ReporterController extends Controller {
 
     public function index() {
-        return view('reporter.index', [
-            'tracker' => new Tracker(),
-        ]);
+        $tracker = new Tracker();
+
+        $trackers = Tracker::where('user_id', Auth::user()->id)
+            ->orderBy('metric')
+            ->get();
+
+        return view('reporter.index', compact('tracker', 'trackers'));
     }
 
     public function graph(Request $request, $metric) {
-        $tracker = Tracker::where('metric', $metric)
+        $tracker = Tracker::where('user_id', Auth::user()->id)
+            ->where('metric', $metric)
             //->with('metricsOrdered') // can't get this to work
             ->with(['metrics' => function ($query) {
                 $query->orderBy('measured_on');
             }])
             ->firstOrFail();
 
-        return view('reporter.index', compact('tracker'));
+        $trackers = Tracker::where('user_id', Auth::user()->id)
+            ->orderBy('metric')
+            ->get();
+
+        return view('reporter.index', compact('tracker', 'trackers'));
     }
 }
