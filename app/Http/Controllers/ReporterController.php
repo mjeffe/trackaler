@@ -85,13 +85,13 @@ class ReporterController extends Controller {
         // goal.
         $start = [
             'x' => $tracker->metrics->first()->measured_on->valueOf(),
-            'y' => $tracker->goal_timestamp
+            'y' => $tracker->goal_date
                         ? $tracker->metrics->first()->value
                         : $tracker->goal_value
         ];
         $end = [
-            'x' => $tracker->goal_timestamp
-                        ? $tracker->goal_timestamp->valueOf()
+            'x' => $tracker->goal_date
+                        ? $tracker->goal_date->valueOf()
                         : $tracker->metrics->last()->measured_on->valueOf(),
             'y' => $tracker->goal_value
         ];

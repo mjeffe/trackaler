@@ -13,10 +13,10 @@ class TrackerFactory extends Factory
     public function definition() {
         return [
             'metric' => $this->faker->unique()->word,
+            'units' => Str::random(3),
             'description' => $this->faker->sentence,
-            'display_units' => Str::random(3),
             'goal_value' => null,
-            'goal_timestamp' => null,
+            'goal_date' => null,
         ];
     }
 
@@ -26,7 +26,7 @@ class TrackerFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'goal_value' => $this->faker->randomFloat(1, 20, 1300),
-                'goal_timestamp' => $this->faker->dateTimeBetween('+1 week', '+3 months')
+                'goal_date' => $this->faker->dateTimeBetween('+1 week', '+3 months')
             ];
         });
     }

@@ -27,10 +27,10 @@ class CreateTrackerRequest extends FormRequest
     public function rules() {
         return [
             'metric' => 'required|string|max:80',
-            'description' => 'required|string|max:400',
-            'display_units' => 'required|string|max:20',
+            'units' => 'required|string|max:20',
+            'description' => 'nullable|string|max:400',
             'goal_value' => 'nullable|numeric',
-            'goal_timestamp' => 'nullable|date',
+            'goal_date' => 'nullable|date',
         ];
     }
 }

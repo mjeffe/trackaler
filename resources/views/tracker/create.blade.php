@@ -29,12 +29,12 @@
             </div>
 
             <div class="mt-3">
-                <x-label for="display_units" class="block">Display Units: *</x-label>
-                @error('display_units')
+                <x-label for="units" class="block">Display Units: *</x-label>
+                @error('units')
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
-                <x-input type="text" id="display_units" name="display_units"
-                    value="{{ old('display_units') ?? $tracker->display_units }}"
+                <x-input type="text" id="units" name="units"
+                    value="{{ old('units') ?? $tracker->units }}"
                     class="w-full"
                     required />
             </div>
@@ -64,12 +64,12 @@
             </div>
 
             <div class="mt-3">
-                <x-label for="goal_timestamp" class="block">Date:</x-label>
-                @error('goal_timestamp')
+                <x-label for="goal_date" class="block">Date:</x-label>
+                @error('goal_date')
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
-                <x-input type="date" id="goal_timestamp" name="goal_timestamp"
-                    value="{{ old('goal_timestamp') ?? $tracker->goal_timestamp }}"
+                <x-input type="date" id="goal_date" name="goal_date"
+                    value="{{ $tracker->goal_date ? $tracker->goal_date->format('Y-m-d') : null }}"
                     class="w-full"
                     />
             </div>

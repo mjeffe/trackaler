@@ -1,5 +1,5 @@
-id|user_id|metric|description|display_units|goal_value|goal_timestamp
-1|1|weight|Track my weight loss|lbs|120|2021-10-01
-2|1|calories|Track my daily calorie intake|cal|1200|
-3|1|daily runs|Track how far I run each day|mi||
-4|1|house plant growth|Track how much my houseplant grows each day. This really just an extra long description in our dev data so we make sure we can handle line wraps, etc. It also has a goal with time, so we can make sure we get that formatted correctly|in|24|2021-10-15T08:00
+id|user_id|metric|units|description|goal_value|goal_date
+1|1|weight|lbs|Track my weight loss|120|2021-10-01
+2|1|calories|cal|Track my daily calorie intake|1200|
+3|1|daily runs|mi|Track how far I run each day||
+4|1|house plant growth|in|Track how much my houseplant grows each day. This really just an extra long description in our dev data so we make sure we can handle line wraps, etc. It also has a goal with time, so we can make sure we get that formatted correctly|24|2021-10-15T08:00

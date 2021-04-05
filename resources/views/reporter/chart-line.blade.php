@@ -45,7 +45,7 @@ Highcharts.chart('container', {
             text: '{{ Str::title($tracker->metric) }}'
         },
         labels: {
-            format: '{value} {{ $tracker->display_units }}'
+            format: '{value} {{ $tracker->units }}'
         },
     },
 

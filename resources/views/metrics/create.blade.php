@@ -27,12 +27,12 @@
         @endif
 
             <div class="mt-3">
-                <x-label for="value" class="block">Value ({{ $tracker->display_units }}):</x-label>
+                <x-label for="value" class="block">Value ({{ $tracker->units }}):</x-label>
                 @error('value')
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="text" id="value" name="value"
-                    value="{{ old('value') ?? $metric->value }}"
+                    value="{{ $metric->value }}"
                     class="w-36"
                     required />
             </div>

@@ -13,9 +13,9 @@ class Tracker extends Model {
     protected $fillable = [
         'metric',
         'description',
-        'display_units',
+        'units',
         'goal_value',
-        'goal_timestamp',
+        'goal_date',
     ];
 
     /**
@@ -24,7 +24,7 @@ class Tracker extends Model {
      * @var array
      */
     protected $casts = [
-        'goal_timestamp' => 'datetime',
+        'goal_date' => 'datetime',
     ];
 
     /*
