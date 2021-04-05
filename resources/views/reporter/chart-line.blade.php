@@ -1,53 +1,13 @@
 <div id="container"></div>
 
-@php
-// format data needed for this chart
-$minDate = $tracker->metrics->first()->measured_on->toFormattedDateString();
-$maxDate = $tracker->metrics->last()->measured_on->toFormattedDateString();
-
-// Values are stored as strings. If we convert here in php, it
-// would use the server's locale. Instead we insert the data
-// as a json object and let the browser convert them into
-// numbers so the user's locale is used. 
-$seriesData = $tracker->metrics->map(function ($item) {
-    return [
-        'metric_id' => $item->id,
-        'tracker_id' => $item->tracker_id,
-        // get datetime in milliseconds (for javascript)
-        'x' => $item->measured_on->valueOf(),
-        //'y' => (double)$item->value,  // uses server's locale
-        'y' => $item->value,
-    ];
-});
-
-$goalSeriesData = [];
-if ($tracker->goal_value) {
-    //
-    // If we have no goal end date, then simply show a horizontal line at the goal value
-    // starting at the date of the first metric and ending at the date of the last metric.
-    //
-    // If we have a goal end date, then start the goal series at the value and date of
-    // the first metric, and end it at the goal date and value.
-    //
-    $start = [
-        'x' => $tracker->metrics->first()->measured_on->valueOf(),
-        'y' => $tracker->goal_timestamp
-                    ? $tracker->metrics->first()->value
-                    : $tracker->goal_value
-    ];
-    $end = [
-        'x' => $tracker->goal_timestamp
-                    ? $tracker->goal_timestamp->valueOf()
-                    : $tracker->metrics->last()->measured_on->valueOf(),
-        'y' => $tracker->goal_value
-    ];
-    $goalSeriesData = [$start,  $end];
-}
-@endphp
-
 <script>
+{{--
+    // Here, we insert the php built data as json objects.  This allows us to
+    // convert data (time, floats, etc) using the browser's locale.
+--}}
 const seriesRawData = {!! json_encode($seriesData) !!}
 const goalSeriesRawData = {!! json_encode($goalSeriesData) !!}
+
 const seriesData = seriesRawData.map((row) => {
     return {
         'metric_id': row.metric_id,
