@@ -27,9 +27,9 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
-Route::get('/', function () {
+Route::get('/', function (TrackerController $controller) {
     if (Auth::check()) {
-        return view('dashboard');
+        return $controller->index();
     } else {
         return view('home');
     }
