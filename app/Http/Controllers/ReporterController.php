@@ -20,8 +20,8 @@ class ReporterController extends Controller {
         return view('reporter.index', compact('tracker', 'trackers'));
     }
 
-    public function graph(Request $request, $metric) {
-        $tracker = $this->getTrackerWithOrderedMetrics($metric);
+    public function graph(Request $request, $tracker_id) {
+        $tracker = $this->getTrackerWithOrderedMetrics($tracker_id);
 
         $data['tracker'] = $tracker;
 
@@ -36,14 +36,13 @@ class ReporterController extends Controller {
         return view('reporter.index', $data);
     }
 
-    protected function getTrackerWithOrderedMetrics($metric) {
-        return Tracker::where('user_id', Auth::user()->id)
-            ->where('metric', $metric)
-            //->with('metricsOrdered') // can't get this to work
-            ->with(['metrics' => function ($query) {
+    protected function getTrackerWithOrderedMetrics($tracker_id) {
+        return Tracker::with(['metrics' => function ($query) {
                 $query->orderBy('measured_on');
             }])
-            ->firstOrFail();
+            //->with('metricsOrdered') // can't get this to work
+            ->where('user_id', Auth::user()->id)
+            ->findOrFail($tracker_id);
     }
 
     protected function getOrderedTrackers() {

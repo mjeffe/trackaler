@@ -2,10 +2,10 @@
     <div class="text-2xl text-gray-500">
         Select the metric you want to view
     </div>
-    <div x-data="{ selectedMetric: '{{ $trackers->first()->metric }}' }">
+    <div x-data="{ selectedMetric: '{{ $trackers->first()->id }}' }">
         <x-select id="metric" name="metric" x-model="selectedMetric">
         @foreach ($trackers as $t)
-            <option value="{{ $t->metric }}">{{ Str::title($t->metric) }}</option>
+            <option value="{{ $t->id }}">{{ Str::title($t->metric) }}</option>
         @endforeach
         </x-select>
 
