@@ -20,6 +20,12 @@ class ReporterController extends Controller {
         return view('reporter.index', compact('tracker', 'trackers'));
     }
 
+    public function metrics(Request $request, $tracker_id) {
+        $tracker = $this->getTrackerWithOrderedMetrics($tracker_id);
+
+        return view('reporter.metrics', compact('tracker'));
+    }
+
     public function graph(Request $request, $tracker_id) {
         $tracker = $this->getTrackerWithOrderedMetrics($tracker_id);
 

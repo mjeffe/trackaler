@@ -16,17 +16,26 @@
             <div>
                 {{ $t->description }}
             </div>
-            <a href="{{ route('metric.create', $t->id) }}" aria-label="Track">
-                <x-button class="mt-3 h-5" aria-label="Track">Track</x-button>
+            <a href="{{ route('metric.create', $t->id) }}">
+                <x-button class="h-5" aria-label="Track">Track</x-button>
             </a>
 
-            <a href="{{ route('tracker.delete', $t->id) }}" aria-label="Delete">
-                <x-button class="mt-3 h-5" aria-label="Delete this Tracker">Delete</x-button>
+            <a href="{{ route('reporter.graph', $t->id) }}">
+                <x-button class="h-5" aria-label="Graph">Graph</x-button>
             </a>
 
-            <a href="{{ route('tracker.edit', $t->id) }}" aria-label="Edit">
-                <x-button class="mt-3 h-5" aria-label="Edit this Tracker">Edit</x-button>
+            <a href="{{ route('reporter.metrics', $t->id) }}">
+                <x-button class="h-5" aria-label="Metrics">Data</x-button>
             </a>
+
+            <a href="{{ route('tracker.edit', $t->id) }}">
+                <x-button class="h-5" aria-label="Edit this Tracker">Edit</x-button>
+            </a>
+
+            <a href="{{ route('tracker.delete', $t->id) }}">
+                <x-button class="h-5" aria-label="Delete this Tracker">Delete</x-button>
+            </a>
+
         </x-card>
     @endforeach
 @else
