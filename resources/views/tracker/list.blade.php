@@ -30,10 +30,5 @@
         <a href="{{ route('tracker.edit', $t->id) }}">
             <x-button class="h-5" aria-label="Edit this Tracker">Edit</x-button>
         </a>
-
-        <a href="{{ route('tracker.delete', $t->id) }}">
-            <x-button class="h-5" aria-label="Delete this Tracker">Delete</x-button>
-        </a>
-
     </x-card>
 @endforeach

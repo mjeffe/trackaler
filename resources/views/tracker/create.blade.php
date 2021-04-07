@@ -76,6 +76,13 @@
         </div>
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>
+
+            @if ($tracker->exists)
+            <a href="{{ route('tracker.delete', $tracker->id) }}">
+                <x-button type="button" class="ml-3" aria-label="Delete this Tracker">Delete</x-button>
+            </a>
+            @endif
         </form>
+
     </x-card>
 </x-app-layout>
