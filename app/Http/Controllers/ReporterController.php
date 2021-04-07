@@ -13,9 +13,7 @@ class ReporterController extends Controller {
     public function index() {
         $tracker = new Tracker();
 
-        $trackers = Tracker::where('user_id', Auth::user()->id)
-            ->orderBy('metric')
-            ->get();
+        $trackers = $this->getOrderedTrackers();
 
         return view('reporter.index', compact('tracker', 'trackers'));
     }
@@ -28,16 +26,15 @@ class ReporterController extends Controller {
 
     public function graph(Request $request, $tracker_id) {
         $tracker = $this->getTrackerWithOrderedMetrics($tracker_id);
-
         $data['tracker'] = $tracker;
 
-        $data['seriesData'] = $this->formatMetricsAsGraphSeries($tracker->metrics);
-        $data['goalSeriesData'] = $this->formatGoalAsGraphSeries($tracker);
+        if (count($tracker->metrics)) {
+            $data['seriesData'] = $this->formatMetricsAsGraphSeries($tracker->metrics);
+            $data['goalSeriesData'] = $this->formatGoalAsGraphSeries($tracker);
 
-        $data['minDate'] = $tracker->metrics->first()->measured_on->toFormattedDateString();
-        $data['maxDate'] = $tracker->metrics->last()->measured_on->toFormattedDateString();
-
-        $data['trackers'] = $this->getOrderedTrackers();
+            $data['minDate'] = $tracker->metrics->first()->measured_on->toFormattedDateString();
+            $data['maxDate'] = $tracker->metrics->last()->measured_on->toFormattedDateString();
+        }
 
         return view('reporter.index', $data);
     }
