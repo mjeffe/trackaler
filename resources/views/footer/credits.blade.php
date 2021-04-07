@@ -9,6 +9,7 @@
             <li><x-a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</x-a></li>
             <li><x-a href="https://iconmonstr.com" target="_blank">Icons by iconmonstr</x-a></li>
             <li><x-a href="https://www.highcharts.com" target="_blank">Highcharts</x-a></li>
+            <li><x-a href="https://github.com/Cosbgn/tailwindcss-tooltips" target="_blank">Tooltips</x-a></li>
         </ul>
     </x-card>
 </x-app-layout>
