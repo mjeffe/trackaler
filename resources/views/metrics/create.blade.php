@@ -9,7 +9,11 @@
                     {{ Str::title($tracker->metric) }} Tracker
                 </x-slot>
 
-                You can edit this data point or delete it entirely
+                @if ($metric->exists)
+                    You can edit this data point or delete it entirely
+                @else
+                    Add a data point for this tracker and the date on which it was measured
+                @endif
             </x-help>
         </x-slot>
 

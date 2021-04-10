@@ -5,20 +5,23 @@
     <x-card>
         <x-help>
             A tracker is simply something you want to track. For example weight loss.
-            Don't worry, you can always change this information latger by clicking the tracker's
+            Don't worry, you can always change this information later by clicking the tracker's
             <img class="inline" height="16" width="16" src="{{ asset('img/iconmonstr-pencil-9.svg') }}">
             (edit) icon.
             <dl>
                 <dt class="font-bold">Metric</dt>
                 <dd class="ml-4">
-                    This is the name for your tracker, so use something short such as
-                    <span class="font-semibold">weight</span> or <span class="font-semibold">daily run</span>.
+                    This is the name for your tracker (the thing you are measuring or tracking), so
+                    use something short such as <span class="font-semibold">weight</span> or
+                    <span class="font-semibold">daily run</span>.
                 </dd>
                 <dt class="font-bold">Units</dt>
                 <dd class="ml-4">
-                    The units in which the metric is measured. For <i>weight</i> it could
-                    be <i>lbs</i> or <i>kgs</i>, for <i>daily run</i> it could be
-                    <i>mi</i> or <i>km</i>, etc.
+                    The units in which the metric is measured. For a <i>weight</i> metric it could
+                    be <span class="font-semibold">lb</span>
+                    or <span class="font-semibold">kg</span>, for a <i>daily run</i> metric it could
+                    be <span class="font-semibold">mi</span>
+                    or <span class="font-semibold">km</span>, etc.
                 </dd>
                 <dt class="font-bold">Description</dt>
                 <dd class="ml-4">
@@ -27,7 +30,8 @@
             </dl>
             <hr>
             <strong>Goals</strong> are optional. If you choose to set a goal, then simply provide
-            a <strong>Target</strong> value and optionally a target <strong>Date</strong>.
+            a <strong>Target</strong> value and optionally a target <strong>Date</strong>. These
+            will be added to graphs if you want to visualize progress towards a goal.
         </x-help>
         @if (session()->get('error'))
             <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
