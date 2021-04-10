@@ -11,7 +11,7 @@
                     <span class="font-bold">Goal: </span> {{ $t->goal_value }}
                     @if ($t->goal_date)
                         <span class="font-bold pl-4">By: </span>
-                        <span x-html="window.localDateStr({{ $t->goal_date->valueOf() }})"></span>
+                        <span x-html="localDateStr({{ $t->goal_date->valueOf() }})"></span>
                     @endif
                 </div>
             @endif

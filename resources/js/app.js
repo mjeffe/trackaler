@@ -2,7 +2,7 @@ require('./bootstrap');
 
 require('alpinejs');
 
-window.localDateStr = function (msdate) {
+localDateStr = function (msdate) {
     const d = new Date(msdate);
     /*
     const options = {
