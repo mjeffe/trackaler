@@ -1,20 +1,20 @@
 <x-app-layout>
     <div class="text-2xl text-gray-500">
-        Record data for this Tracker
+        <x-help>
+            <x-slot name="label">
+                {{ ($metric->exists) ? 'Edit the' : 'Add a' }} data point
+            </x-slot>
+
+            @if ($metric->exists)
+                You can edit this data point or delete it entirely
+            @else
+                Add a data point for this tracker and the date on which it was recorded
+            @endif
+        </x-help>
     </div>
     <x-card width="md">
         <x-slot name="title">
-            <x-help>
-                <x-slot name="label">
-                    {{ Str::title($tracker->metric) }} Tracker
-                </x-slot>
-
-                @if ($metric->exists)
-                    You can edit this data point or delete it entirely
-                @else
-                    Add a data point for this tracker and the date on which it was measured
-                @endif
-            </x-help>
+            {{ Str::title($tracker->metric) }} Tracker
         </x-slot>
 
         @if (session()->get('error'))
