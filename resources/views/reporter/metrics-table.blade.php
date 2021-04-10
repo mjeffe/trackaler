@@ -2,25 +2,23 @@
     {{ Str::title($tracker->metric) }} Tracker Metrics
 </div>
 <x-card width="md">
-    <table class="table-fixed xw-full text-left">
+    <x-help>
+        Click/tap a row to edit
+    </x-help>
+    <table class="table-fixed w-full text-left">
         <thead>
             <tr>
                 <th xclass="w-2/6">Value</th>
                 <th xclass="w-2/6">Measured On</th>
-                <th class="w-1/6">Edit</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody x-data="{}">
             @foreach ($tracker->metrics as $m)
-                <tr>
+                <tr class="cursor-pointer hover:bg-secondary-200"
+                    @click="window.location.href='{{ route('metric.edit', [$tracker->id, $m->id]) }}'">
                     <td class="border border-secondary-300">{{ $m->value }}</td>
                     <td class="border border-secondary-300" x-data={}>
                         <span x-html="localDateStr({{ $m->measured_on->valueOf() }})"></span>
-                    </td>
-                    <td class="border border-secondary-300">
-                        <a href="{{ route('metric.edit', [$tracker->id, $m->id]) }}">
-                            <x-button class="box-border h-5" aria-label="Edit">Edit</x-button>
-                        </a>
                     </td>
                 </tr>
             @endforeach

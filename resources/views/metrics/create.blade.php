@@ -4,7 +4,13 @@
     </div>
     <x-card width="md">
         <x-slot name="title">
-            {{ Str::title($tracker->metric) }} Tracker
+            <x-help>
+                <x-slot name="label">
+                    {{ Str::title($tracker->metric) }} Tracker
+                </x-slot>
+
+                You can edit this data point or delete it entirely
+            </x-help>
         </x-slot>
 
         @if (session()->get('error'))
@@ -53,7 +59,7 @@
 
         @if ($metric->exists)
             <a href="{{ route('metric.delete', [$tracker->id, $metric->id]) }}" aria-label="Delete">
-                <x-button class="mt-3 h-5" aria-label="Delete this Metric">Delete</x-button>
+                <x-button aria-label="Delete this Metric">Delete</x-button>
             </a>
         @endif
         </form>

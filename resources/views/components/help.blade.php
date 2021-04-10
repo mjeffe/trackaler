@@ -5,7 +5,7 @@
             <img src="{{ asset('img/iconmonstr-help-3-gray.svg') }}" alt="help">
         </div>
     </div>
-    <div x-show.transition="showHelp" class="p-2 bg-gray-300">
+    <div x-show.transition="showHelp" class="text-sm p-2 bg-gray-300 rounded">
         <div>{{ $slot }}</div>
     </div>
 </div>

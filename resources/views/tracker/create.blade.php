@@ -3,6 +3,32 @@
         Create a new Tracker
     </div>
     <x-card>
+        <x-help>
+            A tracker is simply something you want to track. For example weight loss.
+            Don't worry, you can always change this information latger by clicking the tracker's
+            <img class="inline" height="16" width="16" src="{{ asset('img/iconmonstr-pencil-9.svg') }}">
+            (edit) icon.
+            <dl>
+                <dt class="font-bold">Metric</dt>
+                <dd class="ml-4">
+                    This is the name for your tracker, so use something short such as
+                    <span class="font-semibold">weight</span> or <span class="font-semibold">daily run</span>.
+                </dd>
+                <dt class="font-bold">Units</dt>
+                <dd class="ml-4">
+                    The units in which the metric is measured. For <i>weight</i> it could
+                    be <i>lbs</i> or <i>kgs</i>, for <i>daily run</i> it could be
+                    <i>mi</i> or <i>km</i>, etc.
+                </dd>
+                <dt class="font-bold">Description</dt>
+                <dd class="ml-4">
+                    An optional description of this tracker
+                </dd>
+            </dl>
+            <hr>
+            <strong>Goals</strong> are optional. If you choose to set a goal, then simply provide
+            a <strong>Target</strong> value and optionally a target <strong>Date</strong>.
+        </x-help>
         @if (session()->get('error'))
             <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
         @endif
@@ -29,7 +55,7 @@
             </div>
 
             <div class="mt-3">
-                <x-label for="units" class="block">Display Units: *</x-label>
+                <x-label for="units" class="block">Units: *</x-label>
                 @error('units')
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
@@ -41,7 +67,7 @@
         </div>
 
         <div class="mt-3">
-            <x-label for="description" class="block">Description: *</x-label>
+            <x-label for="description" class="block">Description:</x-label>
             @error('description')
                 <div class="text-red-700 font-semibold">{{ $message }}</div>
             @enderror
