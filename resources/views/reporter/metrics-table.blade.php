@@ -18,7 +18,7 @@
                     @click="window.location.href='{{ route('metric.edit', [$tracker->id, $m->id]) }}'">
                     <td class="border border-secondary-300">{{ $m->value }}</td>
                     <td class="border border-secondary-300" x-data={}>
-                        <span x-html="localDateStr({{ $m->measured_on->valueOf() }})"></span>
+                        <span x-html="window.localDateStr({{ $m->measured_on->valueOf() }})"></span>
                     </td>
                 </tr>
             @endforeach

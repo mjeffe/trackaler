@@ -3802,7 +3802,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
-localDateStr = function localDateStr(msdate) {
+window.localDateStr = function (msdate) {
   var d = new Date(msdate);
   /*
   const options = {
