@@ -39,7 +39,7 @@ class MetricController extends Controller {
         $metric->tracker_id = $tracker_id;
         $metric->save();
 
-        return redirect(route('reporter.graph', $metric->tracker->metric));
+        return redirect(route('reporter.metrics', $tracker_id));
     }
 
     public function store(CreateMetricRequest $request, $tracker_id) {
