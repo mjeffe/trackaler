@@ -4,13 +4,18 @@
 @endif
 
 @if (count($trackers))
-    <div class="text-2xl text-gray-500">
-        Your Trackers
-    </div>
+    <x-help xclass="float-right">
+        <x-slot name="label">
+             <span class="text-2xl text-gray-500">Your Trackers</span>
+        </x-slot>
+        This is the help message
+    </x-help>
 
-    <a href="{{ route('tracker.create') }}" aria-label="Add a Tracker">
-        <x-button class="mt-3" aria-label="Add a tracker">Add a Tracker</x-button>
-    </a>
+    <div>
+        <a href="{{ route('tracker.create') }}" aria-label="Add a Tracker">
+            <x-button class="mt-3" aria-label="Add a tracker">Add a Tracker</x-button>
+        </a>
+    </div>
 
     @include('tracker.list')
 @else

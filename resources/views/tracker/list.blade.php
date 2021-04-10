@@ -3,11 +3,9 @@
         <div>
             <span class="font-bold">{{ Str::title($t->metric) }}</span> ({{ $t->units }})
 
-            <a id="edit-tracker" href="{{ route('tracker.edit', $t->id) }}" class="float-right has-tooltip">
-                <span class="tooltip">Edit (or delete) this tracker</span>
+            <a id="edit-tracker" href="{{ route('tracker.edit', $t->id) }}" class="float-right">
                 <img src="{{ asset('img/iconmonstr-pencil-9.svg') }}">
             </a>
-
             @if (!empty($t->goal_value))
                 <div x-data={}>
                     <span class="font-bold">Goal: </span> {{ $t->goal_value }}
