@@ -41,7 +41,7 @@
                 @error('value')
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
-                <x-input type="text" id="value" name="value"
+                <x-input type="number" step="any" id="value" name="value"
                     value="{{ $metric->value }}"
                     class="w-36"
                     required />

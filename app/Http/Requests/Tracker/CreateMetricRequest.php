@@ -26,8 +26,19 @@ class CreateMetricRequest extends FormRequest
      */
     public function rules() {
         return [
-            'value' => 'required|string|max:20',
+            'value' => 'required|numeric|max:99999999999999999999',
             'measured_on' => 'required|date',
+        ];
+    }
+
+    /**
+     * Custom error messages
+     *
+     * @return array
+     */
+    public function messages() {
+        return [
+            'value.max' => 'The value must not contain more than 20 digits',
         ];
     }
 }
