@@ -29,7 +29,7 @@
 
         @if ($metric->exists)
             <form method="POST" action="{{ route('metric.update', [$tracker->id, $metric->id]) }}">
-                @method('put')
+                @method('PUT')
                 @csrf
         @else
             <form method="POST" action="{{ route('metric.store', $tracker->id) }}">
@@ -60,13 +60,39 @@
             </div>
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>
-
-        @if ($metric->exists)
-            <a href="{{ route('metric.delete', [$tracker->id, $metric->id]) }}" aria-label="Delete">
-                <x-button aria-label="Delete this Metric">Delete</x-button>
-            </a>
-        @endif
         </form>
+        @if ($metric->exists)
+        <div class="inline" x-data="confirmModal()">
+            <form id="delete-metric" method="POST" action="{{ route('metric.delete', [$tracker->id, $metric->id]) }}">
+                @method('DELETE')
+                @csrf
+                <div class="inline">
+                    <x-button type="button" class="cursor-pointer"
+                        @click.prevent="confirmDelete('delete-metric')"
+                        aria-label="Delete this Metric"
+                    >
+                        Delete
+                    </x-button>
+                </div>
+            </form>
+        </div>
+        @endif
 
     </x-card>
 </x-app-layout>
+
+<script>
+function confirmModal() {
+    return {
+        validate: false,
+
+        confirmDelete(form) {
+            answer = confirm('Are you sure you want to delete?');
+            if (answer) {
+                document.forms[form].submit();
+                //window.location.href = route;
+            }
+        },
+    };
+}
+</script>
