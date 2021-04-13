@@ -16,7 +16,8 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
         @auth
-        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <!-- script src="https://code.highcharts.com/highcharts.src.js"></script -->
+        <script src="{{ asset('js/highcharts-9.0.1.js') }}"></script>
         @endauth
     </head>
     <body class="font-sans antialiased">
