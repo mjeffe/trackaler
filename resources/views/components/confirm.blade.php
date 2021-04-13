@@ -1,8 +1,8 @@
-@props(['route' => '#', 'btntext' => 'Confirm'])
+@props(['btntext' => 'Delete',])
 
-<div {{ $attributes->merge(['class' => '']) }} x-data="confirmModal()">
+<div {{ $attributes->merge(['class' => '']) }} x-data="confirmXData()">
     <x-button type="button" class="cursor-pointer"
-        @click.prevent="confirmDelete(' {{ $route }}')"
+        @click.prevent="confirmDelete()"
         aria-label="{{ $btntext }}"
     >
         {{ $btntext }}
@@ -10,12 +10,12 @@
 </div>
 
 <script>
-function confirmModal() {
+function confirmXData() {
     return {
-        confirmDelete(route) {
-            answer = confirm('{{ $slot }}');
+        confirmDelete() {
+            answer = confirm('{{ $message }}');
             if (answer) {
-                window.location.href = route;
+                window.location.href = '{{ $route }}';
             }
         },
     };

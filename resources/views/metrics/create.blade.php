@@ -62,15 +62,16 @@
             <x-button class="mt-3" aria-label="Save">Save </x-button>
 
             @if ($metric->exists)
-            <x-confirm class="inline"
-                btntext="Delete"
-                route="{{ route('metric.delete', [$tracker->id, $metric->id]) }}"
-            >
-                Are you sure you want to Delete?
+            <x-confirm class="inline" btntext="Delete">
+                <x-slot name="message">
+                    Are you sure you want to delete?
+                </x-slot>
+                <x-slot name="route">
+                    {{ route('metric.delete', [$tracker->id, $metric->id]) }}
+                </x-slot>
             </x-confirm>
             @endif
         </form>
 
     </x-card>
 </x-app-layout>
-
