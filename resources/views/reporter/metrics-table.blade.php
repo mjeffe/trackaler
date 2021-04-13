@@ -1,10 +1,12 @@
 <div class="text-2xl text-gray-500">
-    {{ Str::title($tracker->metric) }} Tracker Metrics
-</div>
-<x-card width="md">
-    <x-help>
+    <x-help class="mb-2">
+        <x-slot name="label">
+             <span class="text-2xl text-gray-500">{{ Str::title($tracker->metric) }} Tracker Metrics</span>
+        </x-slot>
         Click/tap a row to edit
     </x-help>
+</div>
+<x-card width="md">
     <table class="table-fixed w-full text-left">
         <thead>
             <tr>
