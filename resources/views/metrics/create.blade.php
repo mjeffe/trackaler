@@ -60,39 +60,17 @@
             </div>
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>
+
+            @if ($metric->exists)
+            <x-confirm class="inline"
+                btntext="Delete"
+                route="{{ route('metric.delete', [$tracker->id, $metric->id]) }}"
+            >
+                Are you sure you want to Delete?
+            </x-confirm>
+            @endif
         </form>
-        @if ($metric->exists)
-        <div class="inline" x-data="confirmModal()">
-            <form id="delete-metric" method="POST" action="{{ route('metric.delete', [$tracker->id, $metric->id]) }}">
-                @method('DELETE')
-                @csrf
-                <div class="inline">
-                    <x-button type="button" class="cursor-pointer"
-                        @click.prevent="confirmDelete('delete-metric')"
-                        aria-label="Delete this Metric"
-                    >
-                        Delete
-                    </x-button>
-                </div>
-            </form>
-        </div>
-        @endif
 
     </x-card>
 </x-app-layout>
 
-<script>
-function confirmModal() {
-    return {
-        validate: false,
-
-        confirmDelete(form) {
-            answer = confirm('Are you sure you want to delete?');
-            if (answer) {
-                document.forms[form].submit();
-                //window.location.href = route;
-            }
-        },
-    };
-}
-</script>
