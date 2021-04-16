@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/', [MetricController::class, 'store'])->name('metric.store');
             Route::put('/{metric_id}', [MetricController::class, 'update'])->name('metric.update');
             Route::get('/{metric_id}/edit', [MetricController::class, 'edit'])->name('metric.edit');
-            Route::get('/{metric_id}/delete', [MetricController::class, 'delete'])->name('metric.delete');
+            Route::delete('/{metric_id}/delete', [MetricController::class, 'delete'])->name('metric.delete');
         });
     });
 

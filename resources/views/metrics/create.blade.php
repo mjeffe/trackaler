@@ -28,12 +28,12 @@
         @endphp
 
         @if ($metric->exists)
-            <form method="POST" action="{{ route('metric.update', [$tracker->id, $metric->id]) }}">
-                @method('PUT')
-                @csrf
+        <form method="POST" action="{{ route('metric.update', [$tracker->id, $metric->id]) }}" class="inline">
+            @method('PUT')
+            @csrf
         @else
-            <form method="POST" action="{{ route('metric.store', $tracker->id) }}">
-                @csrf
+        <form method="POST" action="{{ route('metric.store', $tracker->id) }}">
+            @csrf
         @endif
 
             <div class="mt-3">
@@ -60,18 +60,29 @@
             </div>
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>
-
-            @if ($metric->exists)
-            <x-confirm class="inline" btntext="Delete">
-                <x-slot name="message">
-                    Are you sure you want to delete?
-                </x-slot>
-                <x-slot name="route">
-                    {{ route('metric.delete', [$tracker->id, $metric->id]) }}
-                </x-slot>
-            </x-confirm>
-            @endif
         </form>
 
+        @if ($metric->exists)
+        <form id="delete-metric" class="inline"
+              method="POST" action="{{ route('metric.delete', [$tracker->id, $metric->id]) }}"
+        >
+            @method('DELETE')
+            @csrf
+
+            <x-confirm-modal class="mt-3 float-right" @modal-confirmed="document.forms['delete-metric'].submit()">
+                <x-slot name="button">
+                    <x-button type="button" class="bg-secondary-500" aria-label="Delete">
+                        Delete
+                    </x-button>
+                </x-slot>
+                <x-slot name="title">
+                    Delete data point
+                </x-slot>
+                <x-slot name="message">
+                    Are you sure you want to delete? This action cannot be undone.
+                </x-slot>
+            </x-confirm-modal>
+        </form>
+        @endif
     </x-card>
 </x-app-layout>
