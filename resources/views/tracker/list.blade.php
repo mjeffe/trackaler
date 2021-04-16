@@ -4,7 +4,7 @@
             <span class="font-bold">{{ Str::title($t->metric) }}</span> ({{ $t->units }})
 
             <a id="edit-tracker" href="{{ route('tracker.edit', $t->id) }}" class="float-right">
-                <img src="{{ asset('img/iconmonstr-pencil-9.svg') }}">
+                <x-img.edit-pencil class="w-5 h-5 text-gray-600" />
             </a>
             @if (!empty($t->goal_value))
                 <div x-data={}>
