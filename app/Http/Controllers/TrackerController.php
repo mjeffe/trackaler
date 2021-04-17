@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tracker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Tracker;
+use App\Services\TrackerService;
 use App\Http\Requests\Tracker\CreateTrackerRequest;
 
 class TrackerController extends Controller {
 
+    public function __construct(TrackerService $service) {
+        $this->service = $service;
+    }
+
     public function index() {
-        $trackers = Tracker::where('user_id', Auth::user()->id)->get();
+        $trackers = $this->service->getAll();
 
-        $data = [
-            'trackers' => $trackers,
-        ];
-
-        return view('tracker.index', $data);
+        return view('tracker.index', compact('trackers'));
     }
 
     public function create() {
@@ -27,56 +28,39 @@ class TrackerController extends Controller {
     }
 
     public function edit(Request $request, $tracker_id) {
-        $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
+        $tracker = $this->service->getOne($tracker_id);
 
         return view('tracker.create', compact('tracker'));
     }
 
     public function store(CreateTrackerRequest $request) {
         $request->flash();
-        $tracker = Tracker::where('user_id', Auth::user()->id)
-            ->where('metric', $request->metric)
-            ->first();
-
-        if (!empty($tracker)) {
-            return back()->withError('That tracker already exists')->withInput();
+        try {
+            $this->service->create($request->all());
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
         }
-
-        $tracker = new Tracker();
-
-        $tracker->fill($request->all());
-        $tracker->user_id = Auth::user()->id;
-        $tracker->save();
 
         return $this->index();
     }
 
     public function update(CreateTrackerRequest $request, $tracker_id) {
         $request->flash();
-        $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
-
-        $tracker->fill($request->all());
-        $tracker->user_id = Auth::user()->id;
-        $tracker->save();
+        try {
+            $this->service->update($tracker_id, $request->all());
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
 
         return $this->index();
     }
 
     public function delete(Request $request, $tracker_id) {
-        DB::transaction(function () use($tracker_id) {
-            $tracker = Tracker::where('user_id', Auth::user()->id)->find($tracker_id);
-
-            if (empty($tracker)) {
-                return back()->withError('You do not have permissions on that tracker')->withInput();
-            }
-
-            $tracker->delete();
-
-            DB::Table('metrics')
-                ->where('user_id', Auth::user()->id)
-                ->where('tracker_id', $tracker_id)
-                ->delete();
-        });
+        try {
+            $this->service->delete($tracker_id);
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
 
         return $this->index();
     }
