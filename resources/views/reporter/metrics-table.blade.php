@@ -1,4 +1,6 @@
 <div class="text-2xl text-gray-500">
+    <x-success-notice />
+
     <x-help class="mb-2">
         <x-slot name="label">
              <span class="text-2xl text-gray-500">{{ Str::title($tracker->metric) }} Tracker Metrics</span>

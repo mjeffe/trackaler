@@ -44,6 +44,7 @@ class MetricController extends Controller {
 
         $this->metricService->create($tracker_id, $request->all());
 
+        $request->session()->flash('success', 'Yay');
         return $this->create($request, $tracker_id);
     }
 
@@ -52,7 +53,7 @@ class MetricController extends Controller {
 
         $this->metricService->update($tracker_id, $metric_id, $request->all());
 
-        return redirect(route('reporter.metrics', $tracker_id));
+        return redirect()->route('reporter.metrics', $tracker_id)->with('success', true);
     }
 
     public function delete(Request $request, $tracker_id, $metric_id) {
@@ -61,6 +62,6 @@ class MetricController extends Controller {
         return redirect()->route('reporter.metrics', [
             'tracker_id' => $tracker_id,
             'metric_id' => $metric_id
-        ]);
+        ])->with('success', true);
     }
 }

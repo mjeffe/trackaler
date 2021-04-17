@@ -3,6 +3,8 @@
         <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
     @endif
 
+    <x-success-notice />
+
     @if (count($trackers))
         <x-help>
             <x-slot name="label">

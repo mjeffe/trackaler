@@ -40,6 +40,8 @@ class TrackerController extends Controller {
             return back()->withError('That tracker already exists')->withInput();
         }
 
+        $request->session()->flash('success', 'Yay');
+
         return $this->index();
     }
 
@@ -48,11 +50,15 @@ class TrackerController extends Controller {
 
         $this->service->update($tracker_id, $request->all());
 
+        $request->session()->flash('success', 'Yay');
+
         return $this->index();
     }
 
     public function delete(Request $request, $tracker_id) {
         $this->service->delete($tracker_id);
+
+        $request->session()->flash('success', 'Yay');
 
         return $this->index();
     }

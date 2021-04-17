@@ -1,4 +1,6 @@
 <x-app-layout>
+    <x-success-notice />
+
     <div class="text-2xl text-gray-500">
         <x-help>
             <x-slot name="label">
