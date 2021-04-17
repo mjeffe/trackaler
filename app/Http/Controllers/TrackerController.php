@@ -46,7 +46,7 @@ class TrackerController extends Controller {
     public function update(CreateTrackerRequest $request, $tracker_id) {
         $request->flash();
 
-        return back()->withError($e->getMessage())->withInput();
+        $this->service->update($tracker_id, $request->all());
 
         return $this->index();
     }
