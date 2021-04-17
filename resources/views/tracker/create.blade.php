@@ -40,7 +40,7 @@
         @endif
 
         @if ($tracker->exists)
-            <form method="POST" action="{{ route('tracker.update', $tracker->id) }}">
+            <form method="POST" action="{{ route('tracker.update', $tracker->id) }}" class="inline">
                 @method('put')
                 @csrf
         @else
@@ -109,12 +109,36 @@
 
             <x-button class="mt-3" aria-label="Save">Save </x-button>
 
-            @if ($tracker->exists)
-            <a href="{{ route('tracker.delete', $tracker->id) }}">
-                <x-button type="button" class="ml-3" aria-label="Delete this Tracker">Delete</x-button>
-            </a>
-            @endif
         </form>
+
+        @if ($tracker->exists)
+        <form id="delete-tracker" class="inline"
+              method="POST" action="{{ route('tracker.delete', $tracker->id) }}"
+        >
+            @method('DELETE')
+            @csrf
+
+            <x-confirm-modal class="mt-3 float-right" @modal-confirmed="document.forms['delete-tracker'].submit()">
+                <x-slot name="button">
+                    <x-button type="button" class="bg-secondary-500" aria-label="Delete">
+                        Delete
+                    </x-button>
+                </x-slot>
+                <x-slot name="title">
+                    Delete tracker
+                </x-slot>
+                <x-slot name="message">
+                        Are you sure you want to delete this tracker? This action cannot be undone.
+                        <span class="text-red-400 font-bold">Please note!</span>
+                        <span class="font-bold">All data you have recorded
+                        for this tracker will also be deleted!</span>
+                    <br>
+                    <br>
+                        Please consider exporting your data before you delete
+                </x-slot>
+            </x-confirm-modal>
+        </form>
+        @endif
 
     </x-card>
 </x-app-layout>

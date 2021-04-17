@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/', [TrackerController::class, 'store'])->name('tracker.store');
         Route::put('/{tracker_id}', [TrackerController::class, 'update'])->name('tracker.update');
         Route::get('/{tracker_id}/edit', [TrackerController::class, 'edit'])->name('tracker.edit');
-        Route::get('/{tracker_id}/delete', [TrackerController::class, 'delete'])->name('tracker.delete');
+        Route::delete('/{tracker_id}/delete', [TrackerController::class, 'delete'])->name('tracker.delete');
 
         Route::group(['prefix' => '/{tracker_id}/metric'], function () {
             //Route::get('/', [MetricController::class, 'index'])->name('metric');
