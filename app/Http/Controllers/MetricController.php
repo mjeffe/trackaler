@@ -58,7 +58,19 @@ class MetricController extends Controller {
     }
 
     public function delete(Request $request, $tracker_id, $metric_id) {
-        return 'Unimplemented';
-        //return view('metrics.create');
+        $metric = Metric::where('user_id', Auth::user()->id)
+            ->where('tracker_id', $tracker_id)
+            ->findOrFail($metric_id);
+
+        if (empty($metric)) {
+            return back()->withError('You do not have permissions on that metric')->withInput();
+        }
+
+        $metric->delete();
+
+        return redirect()->route('reporter.metrics', [
+            'tracker_id' => $tracker_id,
+            'metric_id' => $metric_id
+        ]);
     }
 }

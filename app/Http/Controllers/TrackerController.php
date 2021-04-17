@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tracker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Tracker\CreateTrackerRequest;
 
@@ -62,13 +63,20 @@ class TrackerController extends Controller {
     }
 
     public function delete(Request $request, $tracker_id) {
-        $tracker = Tracker::where('user_id', Auth::user()->id)->find($tracker_id);
+        DB::transaction(function () use($tracker_id) {
+            $tracker = Tracker::where('user_id', Auth::user()->id)->find($tracker_id);
 
-        if (empty($tracker)) {
-            return back()->withError('You do not have permissions on that tracker')->withInput();
-        }
+            if (empty($tracker)) {
+                return back()->withError('You do not have permissions on that tracker')->withInput();
+            }
 
-        $tracker->delete();
+            $tracker->delete();
+
+            DB::Table('metrics')
+                ->where('user_id', Auth::user()->id)
+                ->where('tracker_id', $tracker_id)
+                ->delete();
+        });
 
         return $this->index();
     }
