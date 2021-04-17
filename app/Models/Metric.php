@@ -10,8 +10,6 @@ class Metric extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'tracker_id',
         'value',
         'measured_on',
     ];
