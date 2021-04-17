@@ -19,6 +19,15 @@ class TrackerService extends BaseService {
         return Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
     }
 
+    public function getOneWithOrderedMetrics($tracker_id) {
+        return Tracker::where('user_id', Auth::user()->id)
+            ->with(['metrics' => function ($query) {
+                $query->orderBy('measured_on');
+            }])
+            //->with('metricsOrdered') // can't get this to work
+            ->findOrFail($tracker_id);
+    }
+
     public function create($data) {
         $this->validateCanCreateTracker($data['metric']);
 
