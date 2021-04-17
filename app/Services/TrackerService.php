@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Metric;
 use App\Models\Tracker;
 use App\Services\BaseService;
+use App\Exceptions\DuplicateTrackerException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,12 +20,7 @@ class TrackerService extends BaseService {
     }
 
     public function create($data) {
-        $exists = Tracker::where('user_id', Auth::user()->id)
-            ->where('metric', $data['metric'])
-            ->first();
-        if ($exists) {
-            throw new \Exception('That tracker already exists');
-        }
+        $this->validateCanCreateTracker($data['metric']);
 
         $tracker = new Tracker();
         $tracker->fill($data);
@@ -35,10 +31,9 @@ class TrackerService extends BaseService {
     }
 
     public function update($tracker_id, $data) {
-        $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
+        $tracker = $this->getOne($tracker_id);
 
         $tracker->fill($data);
-        $tracker->user_id = Auth::user()->id;
         $tracker->save();
 
         return $tracker;
@@ -46,7 +41,7 @@ class TrackerService extends BaseService {
 
     public function delete($tracker_id) {
         DB::transaction(function () use($tracker_id) {
-            $tracker = Tracker::where('user_id', Auth::user()->id)->findOrFail($tracker_id);
+            $tracker = $this->getOne($tracker_id);
 
             $tracker->delete();
 
@@ -56,4 +51,15 @@ class TrackerService extends BaseService {
                 ->delete();
         });
     }
+
+    protected function validateCanCreateTracker($metric) {
+        $exists = Tracker::where('user_id', Auth::user()->id)
+            ->where('metric', $metric)
+            ->first();
+
+        if ($exists) {
+            throw new DuplicateTrackerException("Cannot create duplicate tracker for $metric metric");
+        }
+    }
+
 }

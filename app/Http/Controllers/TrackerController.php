@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Tracker;
 use App\Services\TrackerService;
+use App\Exceptions\DuplicateTrackerException;
 use App\Http\Requests\Tracker\CreateTrackerRequest;
 
 class TrackerController extends Controller {
@@ -37,8 +36,8 @@ class TrackerController extends Controller {
         $request->flash();
         try {
             $this->service->create($request->all());
-        } catch (\Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
+        } catch (DuplicateTrackerException $e) {
+            return back()->withError('That tracker already exists')->withInput();
         }
 
         return $this->index();
@@ -46,21 +45,14 @@ class TrackerController extends Controller {
 
     public function update(CreateTrackerRequest $request, $tracker_id) {
         $request->flash();
-        try {
-            $this->service->update($tracker_id, $request->all());
-        } catch (\Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
-        }
+
+        return back()->withError($e->getMessage())->withInput();
 
         return $this->index();
     }
 
     public function delete(Request $request, $tracker_id) {
-        try {
-            $this->service->delete($tracker_id);
-        } catch (\Exception $e) {
-            return back()->withError($e->getMessage())->withInput();
-        }
+        $this->service->delete($tracker_id);
 
         return $this->index();
     }
