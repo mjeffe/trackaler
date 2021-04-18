@@ -1,8 +1,6 @@
-<div class="text-2xl text-gray-500">
-    <x-help class="mb-2">
-        <x-slot name="label">
-             <span class="text-2xl text-gray-500">{{ Str::title($tracker->metric) }} Tracker</span>
-        </x-slot>
+<div class="inline-flex items-center">
+    <div class="text-2xl text-gray-500">{{ Str::title($tracker->metric) }} Tracker</div>
+    <x-help>
         <p class="pb-2">
             This is a graph of all data points you have recoreded for this tracker, and your goal
             if you set one.

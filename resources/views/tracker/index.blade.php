@@ -6,13 +6,13 @@
     <x-success-notice />
 
     @if (count($trackers))
-        <x-help>
-            <x-slot name="label">
-                 <span class="text-2xl text-gray-500">Your Trackers</span>
-            </x-slot>
-            This is your home screen with a list of all trackers. From here you can
-            add new trackers or work with your existing trackers.
-        </x-help>
+        <div class="inline-flex items-center">
+            <div class="text-2xl text-gray-500">Your Trackers</div>
+            <x-help>
+                This is your home screen with a list of all trackers. From here you can
+                add new trackers or work with your existing trackers.
+            </x-help>
+        </div>
 
         <div class="mb-2">
             <a href="{{ route('tracker.create') }}" aria-label="Add a Tracker">

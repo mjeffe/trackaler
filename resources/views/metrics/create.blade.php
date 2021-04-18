@@ -1,12 +1,11 @@
 <x-app-layout>
     <x-success-notice />
 
-    <div class="text-2xl text-gray-500">
+    <div class="inline-flex items-center">
+        <div class="text-2xl text-gray-500">
+            {{ ($metric->exists) ? 'Edit the' : 'Add a' }} data point
+        </div>
         <x-help>
-            <x-slot name="label">
-                {{ ($metric->exists) ? 'Edit the' : 'Add a' }} data point
-            </x-slot>
-
             @if ($metric->exists)
                 You can edit this data point or delete it entirely
             @else
@@ -14,6 +13,7 @@
             @endif
         </x-help>
     </div>
+
     <x-card width="md">
         <x-slot name="title">
             {{ Str::title($tracker->metric) }} Tracker
