@@ -1,5 +1,5 @@
 @if (Session::has('success'))
-<x-badge {{ $attributes->merge(['class' => 'absolute transition-opacity']) }}
+<div {{ $attributes->merge(['class' => 'absolute transition-opacity w-full bg-green-400 text-white font-semibold text-md text-center rounded-md']) }}
         x-data="{showBadge: true}"
         x-init="setTimeout(function () { showBadge = false; }, 800)"
         x-show="showBadge"
@@ -11,7 +11,7 @@
         x-transition:leave-end="opacity-0"
 >
     <x-img.check-mark class="w-4 h-4 mr-2 inline"/>Success!
-</x-badge>
+</div>
 @endif
 
 
