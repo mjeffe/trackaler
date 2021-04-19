@@ -1,3 +1,18 @@
+@php
+    // figure out what to put in the measured_on date field
+    if ($metric->exists) {
+        // editing, use existing value
+        $measuredOnValue = $metric->measured_on->toDateString();
+    } else {
+        // creating, if old() exists, then need to increment by one day, else it's today
+        $measuredOnValue = date('Y-m-d');
+        if (old('measured_on')) {
+            $dt = new Illuminate\Support\Carbon(strtotime(old('measured_on')));
+            $measuredOnValue = $dt->addDay(1)->toDateString();
+        }
+    }
+@endphp
+
 <x-app-layout>
     <x-success-notice />
 
@@ -23,20 +38,18 @@
             <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
         @endif
 
-        @php
-            $measuredOnValue = ($metric->exists)
-                ? (old('measure_on') ?? $metric->measured_on->toDateString())
-                : (old('measured_on') ?? date('Y-m-d'));
-        @endphp
-
         @if ($metric->exists)
-        <form method="POST" action="{{ route('metric.update', [$tracker->id, $metric->id]) }}" class="inline">
-            @method('PUT')
-            @csrf
+            <form id="edit-metric" class="inline"
+                  method="POST" action="{{ route('metric.update', [$tracker->id, $metric->id]) }}"
+            >
+                @method('PUT')
         @else
-        <form method="POST" action="{{ route('metric.store', $tracker->id) }}">
-            @csrf
+            <form id="create-metric"
+                  method="POST" action="{{ route('metric.store', $tracker->id) }}"
+            >
         @endif
+
+            @csrf
 
             <div class="mt-3">
                 <x-label for="value" class="block">Value ({{ $tracker->units }}):</x-label>
