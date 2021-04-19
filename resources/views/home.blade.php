@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-card width="full">
-        <div class="text-2xl text-gray-500">
+        <x-page-title>
             Tracle is a simple tool that lets you set goals, track stuff toward that goal, and graph your progress.
-        </div>
+        </x-page-title>
     </x-card>
 </x-app-layout>

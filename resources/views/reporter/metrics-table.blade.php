@@ -1,5 +1,7 @@
 <div class="inline-flex items-center">
-    <div class="text-2xl text-gray-500">{{ Str::title($tracker->metric) }} Tracker Metrics</div>
+    <x-page-title>
+        {{ Str::title($tracker->metric) }} Tracker Metrics
+    </x-page-title>
     <x-help>
         Click/tap a row to edit
     </x-help>

@@ -1,7 +1,9 @@
 <x-app-layout>
     @if (count($trackers))
         <div class="inline-flex items-center">
-            <div class="text-2xl text-gray-500">Your Trackers</div>
+            <x-page-title>
+                Your Trackers
+            </x-page-title>
             <x-help>
                 This is your home screen with a list of all trackers. From here you can
                 add new trackers or work with your existing trackers.

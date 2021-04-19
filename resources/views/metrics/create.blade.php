@@ -23,9 +23,9 @@ if ($metric->exists) {
 
 <x-app-layout>
     <div class="inline-flex items-center">
-        <div class="text-2xl text-gray-500">
+        <x-page-title>
             {{ ($metric->exists) ? 'Edit the' : 'Add a' }} data point
-        </div>
+        </x-page-title>
         <x-help>
             @if ($metric->exists)
                 You can edit this data point or delete it entirely

@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="inline-flex items-center">
-        <div class="text-2xl text-gray-500">
+        <x-page-title>
             {{ ($tracker->exists) ? 'Edit this' : 'Create a new' }} tracker
-        </div>
+        </x-page-title>
         <x-help>
             A tracker is simply something you want to track. For example weight loss.
             Don't worry, you can always change this information later by clicking the tracker's

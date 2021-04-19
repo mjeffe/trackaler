@@ -1,7 +1,7 @@
 @if (count($trackers))
-    <div class="text-2xl text-gray-500">
+    <x-page-title>
         Your Trackers
-    </div>
+    </x-page-title>
     <x-card width="full">
         <ul class="list-disc">
             @foreach ($trackers as $tracker)

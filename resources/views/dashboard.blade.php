@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="text-2xl text-gray-500">
+    <x-page-title>
         Welcome!
-    </div>
+    </x-page-title>
 
     <x-card width="full">
         <p>

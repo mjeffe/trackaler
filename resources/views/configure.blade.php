@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="text-2xl text-gray-500">
+    <x-page-title>
         Let's configure stuff
-    </div>
+    </x-page-title>
     <x-card width="full">
         <form method="POST" action="{{ route('configure.store') }}">
             @csrf

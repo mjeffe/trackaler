@@ -1,5 +1,7 @@
 <div class="inline-flex items-center">
-    <div class="text-2xl text-gray-500">{{ Str::title($tracker->metric) }} Tracker</div>
+    <x-page-title>
+        {{ Str::title($tracker->metric) }} Tracker
+    </x-page-title>
     <x-help>
         <p class="pb-2">
             This is a graph of all data points you have recoreded for this tracker, and your goal
