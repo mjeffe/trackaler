@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Tracker;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -12,6 +13,7 @@ class TrackerFactory extends Factory
 
     public function definition() {
         return [
+            'user_id' => User::factory(),
             'metric' => $this->faker->unique()->word,
             'units' => Str::random(3),
             'description' => $this->faker->sentence,

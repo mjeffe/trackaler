@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Metric;
+use App\Models\Tracker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MetricFactory extends Factory
@@ -21,8 +22,10 @@ class MetricFactory extends Factory
      */
     public function definition() {
         return [
+            'tracker_id' => Tracker::factory(),
             'value' => (string)$this->faker->randomFloat(1, 20, 1300),
-            'measured_on' => date('Y:m:d H:i:s', time()),
+            // random date, with today as max
+            'measured_on' => $this->faker->date('Y-m-d', date('Y-m-d')),
         ];
     }
 }
