@@ -29,7 +29,7 @@ class TrackerService extends BaseService {
     }
 
     public function create($data) {
-        $this->validateCanCreateTracker($data['metric']);
+        $this->verifyTrackerMetricAvailable($data['metric']);
 
         $tracker = new Tracker();
         $tracker->fill($data);
@@ -41,6 +41,8 @@ class TrackerService extends BaseService {
 
     public function update($tracker_id, $data) {
         $tracker = $this->getOne($tracker_id);
+
+        $this->verifyTrackerMetricAvailable($data['metric'], $tracker_id);
 
         $tracker->fill($data);
         $tracker->save();
@@ -61,10 +63,15 @@ class TrackerService extends BaseService {
         });
     }
 
-    protected function validateCanCreateTracker($metric) {
-        $exists = Tracker::where('user_id', Auth::user()->id)
-            ->where('metric', $metric)
-            ->first();
+    protected function verifyTrackerMetricAvailable($metric, $excludeTrackerId = null) {
+        $q = Tracker::where('user_id', Auth::user()->id)
+            ->where('metric', $metric);
+
+        if ($excludeTrackerId) {
+            $q->where('tracker_id', '!=', $excludeTrackerId);
+        }
+
+        $exists = $q->first();
 
         if ($exists) {
             throw new DuplicateTrackerException("Cannot create duplicate tracker for $metric metric");

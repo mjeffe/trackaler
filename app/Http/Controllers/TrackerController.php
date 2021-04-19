@@ -36,7 +36,7 @@ class TrackerController extends Controller {
         try {
             $this->service->create($request->all());
         } catch (DuplicateTrackerException $e) {
-            return back()->withError('That tracker already exists')->withInput();
+            return back()->withError("A tracker for '{$request->metric}' already exists")->withInput();
         }
 
         $request->session()->flash('success', 'Yay');
@@ -45,7 +45,11 @@ class TrackerController extends Controller {
     }
 
     public function update(CreateTrackerRequest $request, $tracker_id) {
-        $this->service->update($tracker_id, $request->all());
+        try {
+            $this->service->update($tracker_id, $request->all());
+        } catch (DuplicateTrackerException $e) {
+            return back()->withError("A tracker for '{$request->metric}' already exists")->withInput();
+        }
 
         $request->session()->flash('success', 'Yay');
 
