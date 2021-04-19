@@ -33,7 +33,6 @@ class TrackerController extends Controller {
     }
 
     public function store(CreateTrackerRequest $request) {
-        $request->flash();
         try {
             $this->service->create($request->all());
         } catch (DuplicateTrackerException $e) {
@@ -46,8 +45,6 @@ class TrackerController extends Controller {
     }
 
     public function update(CreateTrackerRequest $request, $tracker_id) {
-        $request->flash();
-
         $this->service->update($tracker_id, $request->all());
 
         $request->session()->flash('success', 'Yay');
