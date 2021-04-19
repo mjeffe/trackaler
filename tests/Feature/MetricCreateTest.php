@@ -10,7 +10,7 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Tracker\CreateMetricRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class MetricTest extends TestCase
+class MetricCreateTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -72,12 +72,13 @@ class MetricTest extends TestCase
     }
 
     /** @test */
-    public function it_will_redirect_on_validation_error() {
+    public function it_will_redirect_back_to_the_metric_form_on_validation_error() {
         $this->data = Metric::factory()->make()->getAttributes();
         unset($this->data['measured_on']);
 
-        $response = $this->post($this->url, $this->data);
+        $response = $this->from($this->url)->post($this->url, $this->data);
 
         $response->assertStatus(302);
+        $response->assertRedirect($this->url);
     }
 }
