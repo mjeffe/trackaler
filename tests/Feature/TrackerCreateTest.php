@@ -9,7 +9,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Requests\Tracker\CreateTrackerRequest;
 
-class TrackerTest extends TestCase
+class TrackerCreateTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -41,6 +41,18 @@ class TrackerTest extends TestCase
         $response = $this->get('/tracker');
 
         $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function it_can_render_a_list_of_all_trackers() {
+        $trackers = Tracker::factory()->for($this->user)->count(3)->create();
+
+        $response = $this->get('/tracker');
+
+        $response->assertStatus(200);
+        foreach ($trackers as $tracker) {
+            $response->assertSeeText($tracker->description);
+        }
     }
 
     /** @test */
@@ -90,17 +102,5 @@ class TrackerTest extends TestCase
         $response = $this->post('/tracker', $this->data);
 
         $response->assertStatus(302);
-    }
-
-    /** @test */
-    public function it_will_render_a_list_of_all_trackers() {
-        $trackers = Tracker::factory()->for($this->user)->count(3)->create();
-
-        $response = $this->get('/tracker');
-
-        $response->assertStatus(200);
-        foreach ($trackers as $tracker) {
-            $response->assertSeeText($tracker->description);
-        }
     }
 }

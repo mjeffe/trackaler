@@ -22,7 +22,16 @@ class TrackerFactory extends Factory
         ];
     }
 
-    // state changes
+    /*
+     * state changes
+     */
+    public function withGoalValue() {
+        return $this->state(function (array $attributes) {
+            return [
+                'goal_value' => $this->faker->randomFloat(1, 20, 1300),
+            ];
+        });
+    }
 
     public function withGoal() {
         return $this->state(function (array $attributes) {
