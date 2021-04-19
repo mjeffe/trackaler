@@ -40,10 +40,6 @@ if ($metric->exists) {
             {{ Str::title($tracker->metric) }} Tracker
         </x-slot>
 
-        @if (session()->get('error'))
-            <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
-        @endif
-
         @if ($metric->exists)
             <form id="edit-metric" class="inline"
                   method="POST" action="{{ route('metric.update', [$tracker->id, $metric->id]) }}"

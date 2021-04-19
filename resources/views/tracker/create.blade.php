@@ -35,10 +35,6 @@
     </div>
 
     <x-card>
-        @if (session()->get('error'))
-            <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
-        @endif
-
         @if ($tracker->exists)
             <form method="POST" action="{{ route('tracker.update', $tracker->id) }}" class="inline">
                 @method('put')

@@ -1,8 +1,4 @@
 <x-app-layout>
-    @if (session()->get('error'))
-        <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
-    @endif
-
     @if (count($trackers))
         <div class="inline-flex items-center">
             <div class="text-2xl text-gray-500">Your Trackers</div>

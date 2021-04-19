@@ -32,6 +32,7 @@
             <main>
                 <x-app-content>
                     <x-success-notice />
+                    <x-error-notice />
                     {{ $slot }}
                 </x-app-content>
             </main>
