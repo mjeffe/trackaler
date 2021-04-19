@@ -16,10 +16,10 @@ class TrackerTest extends TestCase
     public function setUp(): void {
         parent::setUp();
 
-        $this->data = Tracker::factory()->make()->getAttributes();
-
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
+
+        $this->data = Tracker::factory()->for($this->user)->make()->getAttributes();
     }
 
     public function requiredFieldsProvider() {
@@ -61,7 +61,7 @@ class TrackerTest extends TestCase
 
     /** @test */
     public function it_can_create_a_new_tracker_with_goal() {
-        $this->data = Tracker::factory()->withGoal()->make()->getAttributes();
+        $this->data = Tracker::factory()->for($this->user)->withGoal()->make()->getAttributes();
 
         $response = $this->post('/tracker', $this->data);
 
@@ -94,7 +94,7 @@ class TrackerTest extends TestCase
 
     /** @test */
     public function it_will_render_a_list_of_all_trackers() {
-        $trackers = Tracker::factory()->count(3)->for($this->user)->create();
+        $trackers = Tracker::factory()->for($this->user)->count(3)->create();
 
         $response = $this->get('/tracker');
 

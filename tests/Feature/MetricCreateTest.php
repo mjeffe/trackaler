@@ -48,7 +48,7 @@ class MetricCreateTest extends TestCase
 
     /** @test */
     public function it_can_create_a_new_metric() {
-        $this->data = Metric::factory()->make()->getAttributes();
+        $this->data = Metric::factory()->for($this->tracker)->make()->getAttributes();
 
         $response = $this->post($this->url, $this->data);
 
@@ -62,7 +62,7 @@ class MetricCreateTest extends TestCase
      * @dataProvider requiredFieldsProvider
      */
     public function it_will_fail_with_errors_when_required_field_is_not_submitted($field) {
-        $this->data = Metric::factory()->make()->getAttributes();
+        $this->data = Metric::factory()->for($this->tracker)->make()->getAttributes();
         unset($this->data[$field]);
 
         $response = $this->post($this->url, $this->data);
@@ -73,7 +73,7 @@ class MetricCreateTest extends TestCase
 
     /** @test */
     public function it_will_redirect_back_to_the_metric_form_on_validation_error() {
-        $this->data = Metric::factory()->make()->getAttributes();
+        $this->data = Metric::factory()->for($this->tracker)->make()->getAttributes();
         unset($this->data['measured_on']);
 
         $response = $this->from($this->url)->post($this->url, $this->data);
