@@ -51,7 +51,7 @@ class TrackerController extends Controller {
             return back()->withError("A tracker for '{$request->metric}' already exists")->withInput();
         }
 
-        $request->session()->flash('success', 'Yay');
+        $request->session()->flash('success', true);
 
         return $this->index();
     }
@@ -59,7 +59,7 @@ class TrackerController extends Controller {
     public function delete(Request $request, $tracker_id) {
         $this->service->delete($tracker_id);
 
-        $request->session()->flash('success', 'Yay');
+        $request->session()->flash('success', true);
 
         return $this->index();
     }

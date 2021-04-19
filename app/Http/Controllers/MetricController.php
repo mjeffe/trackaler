@@ -44,7 +44,7 @@ class MetricController extends Controller {
 
         $this->metricService->create($tracker_id, $request->all());
 
-        $request->session()->flash('success', 'Yay');
+        $request->session()->flash('success', true);
         return $this->create($request, $tracker_id);
     }
 
