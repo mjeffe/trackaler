@@ -20,6 +20,8 @@ class TrackerCreateTest extends TestCase
         $this->actingAs($this->user);
 
         $this->data = Tracker::factory()->for($this->user)->make()->getAttributes();
+
+        $this->url = '/tracker';
     }
 
     public function requiredFieldsProvider() {
@@ -38,7 +40,7 @@ class TrackerCreateTest extends TestCase
 
     /** @test */
     public function it_can_render_tracker_screen() {
-        $response = $this->get('/tracker');
+        $response = $this->get($this->url);
 
         $response->assertStatus(200);
     }
@@ -47,7 +49,7 @@ class TrackerCreateTest extends TestCase
     public function it_can_render_a_list_of_all_trackers() {
         $trackers = Tracker::factory()->for($this->user)->count(3)->create();
 
-        $response = $this->get('/tracker');
+        $response = $this->get($this->url);
 
         $response->assertStatus(200);
         foreach ($trackers as $tracker) {
@@ -57,14 +59,14 @@ class TrackerCreateTest extends TestCase
 
     /** @test */
     public function it_can_render_the_create_tracker_screen() {
-        $response = $this->get('/tracker/create');
+        $response = $this->get($this->url . '/create');
 
         $response->assertStatus(200);
     }
 
     /** @test */
     public function it_can_create_a_new_tracker() {
-        $response = $this->post('/tracker', $this->data);
+        $response = $this->post($this->url, $this->data);
 
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
@@ -75,7 +77,7 @@ class TrackerCreateTest extends TestCase
     public function it_can_create_a_new_tracker_with_goal() {
         $this->data = Tracker::factory()->for($this->user)->withGoal()->make()->getAttributes();
 
-        $response = $this->post('/tracker', $this->data);
+        $response = $this->post($this->url, $this->data);
 
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
@@ -89,7 +91,7 @@ class TrackerCreateTest extends TestCase
     public function it_will_fail_with_errors_when_required_field_is_not_submitted($field) {
         unset($this->data[$field]);
 
-        $response = $this->post('/tracker', $this->data);
+        $response = $this->post($this->url, $this->data);
 
         $response->assertSessionHasErrors($field);
         $this->assertDatabaseMissing('trackers', $this->data);
@@ -99,7 +101,7 @@ class TrackerCreateTest extends TestCase
     public function it_will_redirect_on_validation_error() {
         unset($this->data['metric']);
 
-        $response = $this->post('/tracker', $this->data);
+        $response = $this->post($this->url, $this->data);
 
         $response->assertStatus(302);
     }
