@@ -1,16 +1,24 @@
 @php
-    // figure out what to put in the measured_on date field
-    if ($metric->exists) {
-        // editing, use existing value
-        $measuredOnValue = $metric->measured_on->toDateString();
-    } else {
-        // creating, if old() exists, then need to increment by one day, else it's today
-        $measuredOnValue = date('Y-m-d');
-        if (old('measured_on')) {
-            $dt = new Illuminate\Support\Carbon(strtotime(old('measured_on')));
-            $measuredOnValue = $dt->addDay(1)->toDateString();
-        }
+// Throught this site, we use the same form for creating and editing.  Here, we
+// need to figure out what we want to put in the measured_on date field.  When
+// editing, obviously, it needs to be filled with the existing value. However,
+// for a nice "create" workflow, we assume the user is going to enter today's
+// data, so prefill with today. We further assume that the user may want to
+// enter multiple metrics at once (i.e. enter all of last week's metrics), so
+// after save, we return user to this form and increment the day by 1.
+//
+// figure out what to put in the measured_on date field
+if ($metric->exists) {
+    // editing, use existing value
+    $measuredOnValue = $metric->measured_on->toDateString();
+} else {
+    // creating, if old() exists, then increment by one day, else it's today
+    $measuredOnValue = date('Y-m-d');
+    if (old('measured_on')) {
+        $dt = new Illuminate\Support\Carbon(strtotime(old('measured_on')));
+        $measuredOnValue = $dt->addDay(1)->toDateString();
     }
+}
 @endphp
 
 <x-app-layout>
