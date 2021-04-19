@@ -68,13 +68,13 @@ class TrackerService extends BaseService {
             ->where('metric', $metric);
 
         if ($excludeTrackerId) {
-            $q->where('tracker_id', '!=', $excludeTrackerId);
+            $q->where('id', '!=', $excludeTrackerId);
         }
 
         $exists = $q->first();
 
         if ($exists) {
-            throw new DuplicateTrackerException("Cannot create duplicate tracker for $metric metric");
+            throw new DuplicateTrackerException("tracker for $metric metric exists");
         }
     }
 
