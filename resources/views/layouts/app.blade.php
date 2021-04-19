@@ -31,6 +31,7 @@
             <!-- Page Content -->
             <main>
                 <x-app-content>
+                    <x-success-notice />
                     {{ $slot }}
                 </x-app-content>
             </main>

@@ -3,8 +3,6 @@
         <x-alert-danger>{{ session()->get('error') }}</x-alert-danger>
     @endif
 
-    <x-success-notice />
-
     @if (count($trackers))
         <div class="inline-flex items-center">
             <div class="text-2xl text-gray-500">Your Trackers</div>

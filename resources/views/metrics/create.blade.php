@@ -22,8 +22,6 @@ if ($metric->exists) {
 @endphp
 
 <x-app-layout>
-    <x-success-notice />
-
     <div class="inline-flex items-center">
         <div class="text-2xl text-gray-500">
             {{ ($metric->exists) ? 'Edit the' : 'Add a' }} data point
