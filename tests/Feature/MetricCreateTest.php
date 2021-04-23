@@ -81,4 +81,27 @@ class MetricCreateTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect($this->url);
     }
+
+    /*
+     * permission tests
+     */
+
+    /** @test */
+    public function it_will_not_allow_creating_a_metric_for_a_tracker_the_user_does_not_own() {
+        $countOfMetrics = Tracker::with('metrics')->find($this->tracker->id)->metrics->count();
+
+        $user2 = User::factory()->create();
+        $this->actingAs($user2);
+
+        // have user2 try to create a metric for user's tracker
+        $data = Metric::factory()->for($this->tracker)->make()->getAttributes();
+        $response = $this->post($this->url, $data);
+
+        $response->assertStatus(404);
+
+        // make sure it wasn't acutally created
+        $newCountOfMetrics = Tracker::with('metrics')->find($this->tracker->id)->metrics->count();
+        $this->assertEquals($countOfMetrics, $newCountOfMetrics);
+    }
+
 }

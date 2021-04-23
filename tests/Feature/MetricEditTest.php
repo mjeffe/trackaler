@@ -92,4 +92,23 @@ class MetricEditTest extends TestCase
         $this->assertDatabaseHas('metrics', $this->metric->getAttributes());
     }
 
+    /*
+     * permission tests
+     */
+
+    /** @test */
+    public function it_will_not_allow_editing_a_metric_the_user_does_not_own() {
+        $user2 = User::factory()->create();
+        $this->actingAs($user2);
+
+        $data = $this->metric->getAttributes();
+        $data['value'] = (string)(intval($data['value']) + 1);
+
+        // have user2 try to update user's metric
+        $response = $this->put($this->url, $data);
+
+        $response->assertStatus(404);
+        // make sure user's metric is unaltered
+        $this->assertDatabaseHas('metrics', $this->metric->getAttributes());
+    }
 }

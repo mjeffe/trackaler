@@ -114,4 +114,24 @@ class TrackerEditTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect($this->url);
     }
+
+    /*
+     * permission tests
+     */
+
+    /** @test */
+    public function it_will_not_allow_editing_a_tracker_the_user_does_not_own() {
+        $user2 = User::factory()->create();
+        $this->actingAs($user2);
+
+        $data = $this->tracker->getAttributes();
+        $data['units'] = substr($this->faker->word, 0, 8);
+
+        // have user2 try to update user's tracker
+        $response = $this->put($this->url, $data);
+
+        $response->assertStatus(404);
+        // make sure user's tracker is unaltered
+        $this->assertDatabaseHas('trackers', $this->tracker->getAttributes());
+    }
 }

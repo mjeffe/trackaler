@@ -55,4 +55,21 @@ class TrackerDeleteTest extends TestCase
         $this->assertDatabaseMissing('metrics', ['tracker_id' => $this->tracker->id]);
     }
 
+    /*
+     * permission tests
+     */
+
+    /** @test */
+    public function it_will_not_allow_deleting_a_tracker_the_user_does_not_own() {
+        $user2 = User::factory()->create();
+        $this->actingAs($user2);
+
+        // have user2 try to delete user's tracker
+        $response = $this->delete($this->url);
+
+        $response->assertStatus(404);
+        // make sure user2's tracker is still there
+        $this->assertDatabaseHas('trackers', $this->tracker->getAttributes());
+    }
+
 }

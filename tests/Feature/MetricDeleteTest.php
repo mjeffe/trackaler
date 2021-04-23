@@ -47,4 +47,21 @@ class MetricDeleteTest extends TestCase
         $response->assertStatus(404);
     }
 
+    /*
+     * permission tests
+     */
+
+    /** @test */
+    public function it_will_not_allow_deleting_a_metric_the_user_does_not_own() {
+        $user2 = User::factory()->create();
+        $this->actingAs($user2);
+
+        // have user2 try to delete user's tracker
+        $response = $this->delete($this->url);
+
+        $response->assertStatus(404);
+        // make sure user's tracker is still there
+        $this->assertDatabaseHas('trackers', $this->tracker->getAttributes());
+    }
+
 }
