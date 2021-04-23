@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Metric;
 use App\Models\Tracker;
 use App\Services\BaseService;
+use App\Services\MetricService;
 use App\Exceptions\DuplicateTrackerException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -54,12 +55,9 @@ class TrackerService extends BaseService {
         DB::transaction(function () use($tracker_id) {
             $tracker = $this->getOne($tracker_id);
 
-            $tracker->delete();
+            resolve(MetricService::class)->deleteAll($tracker_id);
 
-            DB::Table('metrics')
-                ->where('user_id', Auth::user()->id)
-                ->where('tracker_id', $tracker_id)
-                ->delete();
+            $tracker->delete();
         });
     }
 
