@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/', [TrackerController::class, 'store'])->name('tracker.store');
         Route::put('/{tracker_id}', [TrackerController::class, 'update'])->name('tracker.update');
         Route::get('/{tracker_id}/edit', [TrackerController::class, 'edit'])->name('tracker.edit');
-        Route::delete('/{tracker_id}/delete', [TrackerController::class, 'delete'])->name('tracker.delete');
+        Route::delete('/{tracker_id}', [TrackerController::class, 'delete'])->name('tracker.delete');
 
         Route::group(['prefix' => '/{tracker_id}/metric'], function () {
             //Route::get('/', [MetricController::class, 'index'])->name('metric');
@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/', [MetricController::class, 'store'])->name('metric.store');
             Route::put('/{metric_id}', [MetricController::class, 'update'])->name('metric.update');
             Route::get('/{metric_id}/edit', [MetricController::class, 'edit'])->name('metric.edit');
-            Route::delete('/{metric_id}/delete', [MetricController::class, 'delete'])->name('metric.delete');
+            Route::delete('/{metric_id}', [MetricController::class, 'delete'])->name('metric.delete');
         });
     });
 
