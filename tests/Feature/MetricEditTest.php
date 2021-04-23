@@ -20,9 +20,7 @@ class MetricEditTest extends TestCase
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
 
-        $this->metric = Metric::factory()->for(Tracker::factory()->for($this->user))->create([
-            'user_id' => $this->user->id
-        ]);
+        $this->metric = Metric::factory()->for(Tracker::factory()->for($this->user))->create();
 
         $this->url = '/tracker/' . $this->metric->tracker->id . '/metric/' . $this->metric->id;
     }
