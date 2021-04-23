@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'reporter'], function () {
         Route::get('/{tracker_id}/metrics', [ReporterController::class, 'metrics'])->name('reporter.metrics');
-        Route::get('/{metric}/graph', [ReporterController::class, 'graph'])->name('reporter.graph');
+        Route::get('/{tracker_id}/graph', [ReporterController::class, 'graph'])->name('reporter.graph');
     });
 });
 
