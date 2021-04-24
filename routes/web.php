@@ -46,13 +46,6 @@ Route::group(['middleware' => ['auth']], function () {
         return view('dashboard');
     })->name('dashboard');
 
-    /*
-    Route::group(['prefix' => 'configure'], function () {
-        Route::get('/', [ConfigureController::class, 'index'])->name('configure');
-        Route::post('/', [ConfigureController::class, 'store'])->name('configure.store');
-    });
-     */
-
     Route::group(['prefix' => 'tracker'], function () {
         Route::get('/', [TrackerController::class, 'index'])->name('tracker');
         Route::get('/create', [TrackerController::class, 'create'])->name('tracker.create');

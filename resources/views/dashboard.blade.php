@@ -4,13 +4,13 @@
     </x-page-title>
 
     <x-card width="full">
-        <p>
+        <x-text>
             The functionality of this site is simple.
-        </p>
-        <p>
+        </x-text>
+        <x-text>
             First, <x-a href="{{ route('tracker') }}">configure</x-a> what you want to track.
             Then <x-a href="{{ route('tracker') }}">enter data</x-a>. At any time you can
-            <x-a href="{{ route('reporter.index') }}">view</x-a> your progress.
-        </p>
+            view your progress by clicking the tracker's <x-button class="h-5">graph</x-button> button.
+        </x-text>
     </x-card>
 </x-app-layout>
