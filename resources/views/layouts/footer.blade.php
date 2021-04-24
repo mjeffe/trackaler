@@ -7,7 +7,7 @@
                         {{ __('Credits') }}
                     </x-nav-link>
                     <x-nav-link :href="route('disclaimer')" :active="request()->routeIs('disclaimer')">
-                        {{ __('Disclaimer') }}
+                        {{ __('Privacy Policy') }}
                     </x-nav-link>
                 </nav>
                 <div class="float-right px-1 pt-1 text-sm font-medium text-gray-500">
