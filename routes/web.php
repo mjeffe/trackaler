@@ -22,11 +22,6 @@ use App\Http\Controllers\ReporterController;
 // Non-authenticated routes
 //
 
-// keep this around (for now) to help learning blade
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
 Route::get('/', function (TrackerController $controller) {
     if (Auth::check()) {
         return $controller->index();
