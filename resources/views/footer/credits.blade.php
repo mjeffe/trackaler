@@ -4,6 +4,7 @@
             The following open source tools have been used in this project
         </x-slot>
         <ul class="list-disc">
+            <li><x-a href="https://github.com/mjeffe/tracal" target="_blank">Source code for this site</x-a></li>
             <li><x-a href="https://laravel.com" target="_blank">Laravel</x-a></li>
             <li><x-a href="https://tailwindcss.com" target="_blank">TailwindsCSS</x-a></li>
             <li><x-a href="https://github.com/alpinejs/alpine" target="_blank">Alpine.js</x-a></li>
