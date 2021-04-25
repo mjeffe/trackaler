@@ -1,4 +1,4 @@
-<div class="py-3">
+<div class="pb-3">
     <div class="max-w-full mx-auto sm:px-2 lg:px-3">
         <div class="bg-white overflow-hidden rounded-lg">
             <div class="p-3 bg-white">
