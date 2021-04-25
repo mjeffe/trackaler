@@ -16,6 +16,10 @@
             finger pinch gesture on mobile devices. Just click the
             <span class="font-semibold">Reset Zoom</span> button to return to the full view.
         </p>
+        <p class="pb-2">
+            Click on a data point node to edit. You can also return to the home
+            page and click the "data" button to edit data points.
+        </p>
     </x-help>
 </div>
 
