@@ -76,7 +76,14 @@ if ($metric->exists) {
                     required />
             </div>
 
-            <x-button class="mt-3" aria-label="Save">Save </x-button>
+            <div class="float-right">
+                <a href="{{ ($metric->exists) ? url()->previous() : route('home') }}">
+                    <x-button type="button" class="mt-3" aria-label="Cancel">Cancel</x-button>
+                <a>
+                <x-button class="mt-3 bg-secondary-500 hover:bg-secondary-700" aria-label="Save">
+                    Save
+                </x-button>
+            </div>
         </form>
 
         @if ($metric->exists)
@@ -86,7 +93,7 @@ if ($metric->exists) {
             @method('DELETE')
             @csrf
 
-            <x-confirm-modal class="mt-3 float-right" @modal-confirmed="document.forms['delete-metric'].submit()">
+            <x-confirm-modal class="mt-3" @modal-confirmed="document.forms['delete-metric'].submit()">
                 <x-slot name="button">
                     <x-button type="button" class="bg-secondary-500" aria-label="Delete">
                         Delete
