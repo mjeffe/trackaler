@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MetricController;
 use App\Http\Controllers\TrackerController;
 use App\Http\Controllers\ReporterController;
@@ -37,6 +38,11 @@ Route::get('/credits', function () {
 Route::get('/disclaimer', function () {
     return view('footer.disclaimer');
 })->name('disclaimer');
+
+Route::group(['prefix' => 'contact'], function () {
+    Route::get('/', [ContactController::class, 'create'])->name('contact.create');
+    //Route::post('/', [ContactController::class, 'store'])->name('contact.store');
+});
 
 //
 // Authenticated routes
