@@ -9,6 +9,9 @@
                     <x-nav-link :href="route('disclaimer')" :active="request()->routeIs('disclaimer')">
                         {{ __('Privacy Policy') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('contact.create')" :active="request()->routeIs('contact.create')">
+                        {{ __('Contact') }}
+                    </x-nav-link>
                 </nav>
                 <div class="float-right px-1 pt-1 text-sm font-medium text-gray-500">
                     &#169; 2021 All Rights Reserved.
