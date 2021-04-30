@@ -17,8 +17,9 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-#        depends_on:
+        depends_on:
 #            - pgsql
+            - mysql
 #    pgsql:
 #        image: postgres:13
 #        ports:
@@ -34,9 +35,27 @@ services:
 #            - sail
 #        healthcheck:
 #          test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+
+    mysql:
+        image: 'mysql:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - 'sailmysql:/var/lib/mysql'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
 #volumes:
 #    sailpgsql:
 #        driver: local
+volumes:
+    sailmysql:
+        driver: local
