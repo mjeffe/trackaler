@@ -2,11 +2,12 @@
 
 namespace Database\Seeders\Dev;
 
-use Illuminate\Database\Seeder;
+use App\Models\Tracker;
+use Database\Seeders\BaseSeeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class TrackersSeeder extends Seeder {
+class TrackersSeeder extends BaseSeeder {
     public function run() {
         $table = 'trackers';
 
@@ -14,10 +15,9 @@ class TrackersSeeder extends Seeder {
 
         $rows = SimpleExcelReader::create(database_path("data/dev/{$table}.csv"))
             ->useDelimiter('|')
-            ->getRows();
+            ->getRows()
+            ->toArray();
 
-        $rows->each(function(array $rowProperties) use ($table) {
-            DB::table($table)->insert($rowProperties);
-        });
+        Tracker::insert($this->prepForDbLoad($rows));
     }
 }

@@ -11,9 +11,9 @@ class CreateTrackersTable extends Migration {
             $table->bigInteger('user_id');
             $table->string('metric', 80);
             $table->string('units', 20);  // for display only
-            $table->string('description', 400)->nullable();
-            $table->string('goal_value', 20)->nullable();
-            $table->timestamp('goal_date')->nullable();
+            $table->string('description', 400)->nullable()->default(null);
+            $table->string('goal_value', 20)->nullable()->default(null);
+            $table->timestamp('goal_date')->nullable()->default(null);
             $table->timestamps();
         });
     }

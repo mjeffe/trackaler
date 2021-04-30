@@ -2,11 +2,12 @@
 
 namespace Database\Seeders\Dev;
 
-use Illuminate\Database\Seeder;
+use App\Models\User;
+use Database\Seeders\BaseSeeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class UsersSeeder extends Seeder {
+class UsersSeeder extends BaseSeeder {
     public function run() {
         // \App\Models\User::factory(10)->create();
 
@@ -16,10 +17,9 @@ class UsersSeeder extends Seeder {
 
         $rows = SimpleExcelReader::create(database_path("data/dev/{$table}.csv"))
             ->useDelimiter('|')
-            ->getRows();
+            ->getRows()
+            ->toArray();
 
-        $rows->each(function(array $rowProperties) use ($table) {
-            DB::table($table)->insert($rowProperties);
-        });
+        user::insert($this->prepForDbLoad($rows));
     }
 }

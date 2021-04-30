@@ -2,11 +2,12 @@
 
 namespace Database\Seeders\Dev;
 
-use Illuminate\Database\Seeder;
+use App\Models\Metric;
+use Database\Seeders\BaseSeeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class MetricsSeeder extends Seeder {
+class MetricsSeeder extends BaseSeeder {
     public function run() {
         $table = 'metrics';
 
@@ -14,10 +15,9 @@ class MetricsSeeder extends Seeder {
 
         $rows = SimpleExcelReader::create(database_path("data/dev/{$table}.csv"))
             ->useDelimiter('|')
-            ->getRows();
+            ->getRows()
+            ->toArray();
 
-        $rows->each(function(array $rowProperties) use ($table) {
-            DB::table($table)->insert($rowProperties);
-        });
+        Metric::insert($this->prepForDbLoad($rows));
     }
 }

@@ -2,11 +2,12 @@
 
 namespace Database\Seeders\Ref;
 
-use Illuminate\Database\Seeder;
+use App\Models\Ref_unit;
+use Database\Seeders\BaseSeeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
-class RefUnitsSeeder extends Seeder {
+class RefUnitsSeeder extends BaseSeeder {
     public function run() {
         $table = 'ref_units';
 
@@ -14,10 +15,9 @@ class RefUnitsSeeder extends Seeder {
 
         $rows = SimpleExcelReader::create(database_path("data/ref/{$table}.csv"))
             ->useDelimiter('|')
-            ->getRows();
+            ->getRows()
+            ->toArray();
 
-        $rows->each(function(array $rowProperties) use ($table) {
-            DB::table($table)->insert($rowProperties);
-        });
+        Ref_unit::insert($rows);
     }
 }
