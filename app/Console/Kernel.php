@@ -24,9 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
         $schedule->command('backup:run')
-            ->daily()->at('01:15')
+            ->daily()->at(env('BACKUP_TIME', '03:00'))   // default backup time to 3:00 am
             ->timezone('America/Chicago')
             ->environments(['production']);
             //->onFailure(function () { });
