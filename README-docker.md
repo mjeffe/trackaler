@@ -169,3 +169,16 @@ echo tracal.db.sql | sail exec -T pgsql exec bash -c "export PGPASSWORD=$dbpass 
 ```
 
 
+## Managing Laravel
+
+To install new packages
+```
+sail composer require laravel/sanctum
+```
+
+To upgrade a package, edit composer.json, then
+```
+sail composer install
+```
+
+
