@@ -59,6 +59,8 @@ if ($metric->exists) {
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="number" step="any" id="value" name="value"
+                    autofocus
+                    tabindex="1"
                     value="{{ $metric->value }}"
                     class="w-36"
                     required />
@@ -70,6 +72,7 @@ if ($metric->exists) {
                     <div class="text-red-700 font-semibold">{{ $message }}</div>
                 @enderror
                 <x-input type="date" id="measured_on" name="measured_on"
+                    tabindex="2"
                     value="{{ $measuredOnValue }}"
                     max="{{ date('Y-m-d') }}"
                     class="w-36"
@@ -80,7 +83,7 @@ if ($metric->exists) {
                 <a href="{{ ($metric->exists) ? url()->previous() : route('home') }}">
                     <x-button type="button" class="mt-3" aria-label="Cancel">Cancel</x-button>
                 <a>
-                <x-button class="mt-3 bg-secondary-500 hover:bg-secondary-700" aria-label="Save">
+                <x-button class="mt-3 bg-secondary-500 hover:bg-secondary-700" aria-label="Save" tabindex="3">
                     Save
                 </x-button>
             </div>
