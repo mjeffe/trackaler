@@ -20,7 +20,7 @@
             {{ $t->description }}
         </div>
         <a href="{{ route('metric.create', $t->id) }}">
-            <x-button class="h-5" aria-label="Track">Track</x-button>
+            <x-button class="h-5" aria-label="{{ config('app.name') }}">Track</x-button>
         </a>
 
         <a href="{{ route('reporter.graph', $t->id) }}">

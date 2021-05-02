@@ -11,7 +11,7 @@ class ContactController extends Controller {
     public function create(Request $request) {
         //return view('contact.create');
         return view('footer.contact', [
-            'webmasterEmail' => 'info@tracal.mjeffe.com',
+            'webmasterEmail' => config('mail.from.address')
         ]);
 
     }
