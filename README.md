@@ -23,6 +23,6 @@ I don't know how much farther I'll take this project. I suppose it depends on
 how much it gets used.
 
 Either way, feel free to fork this code. I've released it under the [MIT
-License](https://github.com/mjeffe/trackaler/LICENSE) so you are free to use it
+License](https://github.com/mjeffe/trackaler/blob/main/LICENSE) so you are free to use it
 however you wish. Credit is always nice if you find it useful.
 
