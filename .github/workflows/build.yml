@@ -35,16 +35,16 @@ name: Deploy Workflow
 on:
   repository_dispatch:
     types: [build-for-prod]
-    branches:
-      - main
+#    branches:
+#      - main
 
 jobs:
 
   build-production-assets:
     name: Build assets for PRODUCTION Server
     runs-on: ubuntu-18.04
-    needs: app-tests
-    if: github.ref == 'refs/heads/deploy-actions'
+#    needs: app-tests
+#    if: github.ref == 'refs/heads/deploy-actions'
 
     steps:
       - uses: actions/checkout@v1
