@@ -1,0 +1,66 @@
+#
+# CI/CD Design strategy
+#
+# - Use GitHub Flow - that is:
+#   - main is the only long lived branch
+#   - work on feature branches
+#   - merge to main when production ready
+# - A merge/push to main triggers CI/CD workflow
+# - Only tests.yml is triggered on push to main
+# - All other workflows are triggerd by 'workflow_dispatch'
+# - Workflows are daisy chained by dispatching the next workflow in line
+# - The final workflow should deploy to stg.trackaler.com
+# - A separate workflow that is not part of the daisy chain, should be
+#   triggerable to deploy to production (or possibly a distinct set of parameters
+#   for the deploy workflow)
+#
+# The flow should be:
+# - push to main triggers test.yml
+# - on success, test.yml should workflow_dispatch build.yml
+# - on success, build.yml should workflow_dispatch deploy-stg.yml
+#
+# Once manual inspection and testing have occurred
+# - manually workflow_dispatch deploy-prod.yml
+#
+# Issues, Questions...
+# - can deploy-prod.yml use artifacts built during build.yml? Or do we need to rebuild?
+#
+
+
+name: Deploy Workflow
+
+# https://stevenmortimer.com/running-github-actions-sequentially/
+# helpful reference: https://philo.dev/how-to-use-github-actions-build-matrix-to-deploy-artifacts-to-multiple-servers/
+
+on:
+  repository_dispatch:
+    types: [build-for-prod]
+    branches:
+      - main
+
+jobs:
+
+  build-production-assets:
+    name: Build assets for PRODUCTION Server
+    runs-on: ubuntu-18.04
+    needs: app-tests
+    if: github.ref == 'refs/heads/deploy-actions'
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: NPM Build
+        run: |
+          npm install
+          npm run prod
+
+      - name: Create deployment artifact
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: tar -czf "${GITHUB_SHA}".tar.gz public
+
+      - name: Put built assets in Artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-assets
+          path: ${{ github.sha }}.tar.gz
+          retention-days: 10
