@@ -44,5 +44,5 @@ jobs:
         with:
           token: ${{ secrets.GH_REPO_PAT }}
           event-type: build-for-prod
-          workflow-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
