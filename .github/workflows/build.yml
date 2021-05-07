@@ -27,18 +27,18 @@
 #
 
 
-name: 
+name: Build Assets Workflow 
 
 # https://stevenmortimer.com/running-github-actions-sequentially/
 # helpful reference: https://philo.dev/how-to-use-github-actions-build-matrix-to-deploy-artifacts-to-multiple-servers/
 
-on: workflow_dispatch
-
-#on:
-#  repository_dispatch:
-#    types: [build-for-prod]
-#    branches:
+on:
+  repository_dispatch:
+    types: [build-for-prod]
+    branches:
+      - deploy-workflow
 #      - main
+
 
 jobs:
 
