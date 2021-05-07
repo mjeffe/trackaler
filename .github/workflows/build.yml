@@ -35,9 +35,7 @@ name: Build Assets Workflow
 on:
   repository_dispatch:
     types: [build-for-prod]
-    branches:
-      - deploy-workflow
-#      - main
+#    branches: [ main, deploy-workflow ]
 
 
 jobs:
@@ -50,10 +48,32 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.workflow_payload.sha }}
+
       - name: NPM Build
         run: |
           npm install
           npm run prod
+
+      - name: Echo env vars
+        env:
+          MY_GITHUB_SHA: ${{ github.sha }}
+          WRKFLW_SHA: ${{ github.event.workflow_payload.sha }}
+        run: |
+          echo MY_GITHUB_SHA = $MY_GITHUB_SHA
+          echo WRKFLW_SHA = $WRKFLW_SHA
+          echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
+          echo HOME              = $HOME
+          echo GITHUB_ACTION     = $GITHUB_ACTION
+          echo GITHUB_ACTIONS    = $GITHUB_ACTIONS
+          echo GITHUB_ACTOR      = $GITHUB_ACTOR
+          echo GITHUB_REPOSITORY = $GITHUB_REPOSITORY
+          echo GITHUB_EVENT_NAME = $GITHUB_EVENT_NAME
+          echo GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH
+          echo GITHUB_WORKSPACE  = $GITHUB_WORKSPACE
+          echo GITHUB_SHA        = $GITHUB_SHA
+          echo GITHUB_REF        = $GITHUB_REF
 
       - name: Create deployment artifact
         env:
