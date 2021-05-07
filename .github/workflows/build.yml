@@ -27,14 +27,16 @@
 #
 
 
-name: Deploy Workflow
+name: 
 
 # https://stevenmortimer.com/running-github-actions-sequentially/
 # helpful reference: https://philo.dev/how-to-use-github-actions-build-matrix-to-deploy-artifacts-to-multiple-servers/
 
-on:
-  repository_dispatch:
-    types: [build-for-prod]
+on: workflow_dispatch
+
+#on:
+#  repository_dispatch:
+#    types: [build-for-prod]
 #    branches:
 #      - main
 
