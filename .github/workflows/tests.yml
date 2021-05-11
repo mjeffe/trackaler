@@ -3,6 +3,15 @@ name: Tests Workflow
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+    branches: [ main ]
+    inputs:
+      deploy_to:
+        description: 'Deploy to which system (stg|prod)'
+        required: true
+        default: stg
+  env:
+    DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
 
 jobs:
 
@@ -21,6 +30,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Echo env
+        run: |
+          echo DEPLOY_TO        = $DEPLOY_TO
+          echo env.DEPLOY_TO    = ${{ env.DEPLOY_TO }}
+          echo github object    = ${{ github }}
+          echo github object*   = ${{ github.* }}
+
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
@@ -38,11 +54,11 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
         run: vendor/bin/phpunit
 
-      - name: Trigger build workflow
-        if: success()
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.GH_REPO_PAT }}
-          event-type: build-assets
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+#      - name: Trigger build workflow
+#        if: success()
+#        uses: peter-evans/repository-dispatch@v1
+#        with:
+#          token: ${{ secrets.GH_REPO_PAT }}
+#          event-type: build-assets
+#          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
