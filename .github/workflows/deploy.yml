@@ -30,7 +30,6 @@ jobs:
           PROD_BASEDIR: ${{ secrets.PROD_BASEDIR }}
         run: echo "DEPLOY_BASEDIR=$(if [ ${DISPATCH_LOCATION}x = 'prodx' ]; then echo $PROD_BASEDIR; else echo $STG_BASEDIR; fi)" >> $GITHUB_ENV
 
-    steps:
       - name: Echo env
         run: |
           echo WORKFLOW_LOCATION = $WORKFLOW_LOCATION
