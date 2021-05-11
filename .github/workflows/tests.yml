@@ -12,6 +12,7 @@ on:
         default: stg
 env:
   DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
+  ENV_FOO: foobar
 
 jobs:
 
@@ -35,6 +36,7 @@ jobs:
           STEP_DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
         run: |
           echo DEPLOY_TO        = $DEPLOY_TO
+          echo ENV_FOO          = $ENV_FOO
           echo STEP_DEPLOY_TO   = $STEP_DEPLOY_TO
           echo e.STEP_DEPLOY_TO = ${{ env.STEP_DEPLOY_TO }}
           echo env.DEPLOY_TO    = ${{ env.DEPLOY_TO }}
@@ -65,4 +67,23 @@ jobs:
 #          token: ${{ secrets.GH_REPO_PAT }}
 #          event-type: build-assets
 #          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+
+  dummy-deploy:
+    name: Deploy assets to STAGING Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set deployment env
+        env:
+          #DISPATCH_LOCATION: ${{ github.event.inputs.location }}
+          #DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
+          STG_BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
+          PROD_BASEDIR: ${{ secrets.PROD_BASEDIR }}
+        run: echo "DEPLOY_BASEDIR=$(if [ ${DEPLOY_TO}x = 'prodx' ]; then echo $PROD_BASEDIR; else echo $STG_BASEDIR; fi)" >> $GITHUB_ENV
+
+      - name: Echo env
+        run: |
+          echo DEPLOY_TO             = $DEPLOY_TO
+          echo DEPLOY_BASEDIR        = $DEPLOY_BASEDIR
+          echo env.DEPLOY_BASEDIR    = ${{ env.DEPLOY_BASEDIR }}
 
