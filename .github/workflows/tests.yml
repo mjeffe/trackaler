@@ -10,8 +10,8 @@ on:
         description: 'Deploy to which system (stg|prod)'
         required: true
         default: stg
-  env:
-    DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
+env:
+  DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
 
 jobs:
 
@@ -31,8 +31,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Echo env
+        env:
+          STEP_DEPLOY_TO: ${{ github.event.inputs.deploy_to }}
         run: |
           echo DEPLOY_TO        = $DEPLOY_TO
+          echo STEP_DEPLOY_TO   = $STEP_DEPLOY_TO
+          echo e.STEP_DEPLOY_TO = ${{ env.STEP_DEPLOY_TO }}
           echo env.DEPLOY_TO    = ${{ env.DEPLOY_TO }}
           echo github object    = ${{ github }}
           echo github object*   = ${{ github.* }}
