@@ -1,4 +1,4 @@
-name: CD Workflow
+name: Deploy Workflow
 
 # helpful reference: https://philo.dev/how-to-use-github-actions-build-matrix-to-deploy-artifacts-to-multiple-servers/
 
@@ -19,15 +19,16 @@ jobs:
   deploy-assets:
     name: Deploy assets to STAGING Server
     runs-on: ubuntu-latest
-    env:
-      DEPLOY_BASEDIR: ${{ github.event.inputs.basedir ? github.event.inputs.basedir : secrets.DEPLOY_BASEDIR }}
+#    env:
+#      WORKFLOW_BASEDIR: ${{ github.event.inputs.basedir }}
+#      DEFAULT_BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
 
     steps:
       - name: Set deployment env
         env:
           WORKFLOW_BASEDIR: ${{ github.event.inputs.basedir }}
           DEFAULT_BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
-        run: echo "DEPLOY_BASEDIR=$(if [ -z $WORKFLOW_BASEDIR ]; echo $DEFAULT_BASEDIR; else echo $WORKFLOW_BASEDIR; fi)" >> $GITHUB_ENV
+        run: echo "DEPLOY_BASEDIR=$(if [ ${WORKFLOW_BASEDIR}x = 'x' ]; then echo $DEFAULT_BASEDIR; else echo $WORKFLOW_BASEDIR; fi)" >> $GITHUB_ENV
 
       - name: Fetch built assets from Artifacts
         uses: actions/download-artifact@v2

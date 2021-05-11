@@ -33,7 +33,7 @@ name: Build Assets Workflow
 # helpful reference: https://philo.dev/how-to-use-github-actions-build-matrix-to-deploy-artifacts-to-multiple-servers/
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
     branches:
       - main
   repository_dispatch:
