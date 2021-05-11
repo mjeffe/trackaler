@@ -32,11 +32,13 @@ jobs:
 
       - name: Echo env
         run: |
-          echo WORKFLOW_LOCATION = $WORKFLOW_LOCATION
-          echo DISPATCH_LOCATION = $DISPATCH_LOCATION
-          echo PROD_BASEDIR      = $PROD_BASEDIR
-          echo STG_BASEDIR       = $STG_BASEDIR
-          echo DEPLOY_BASEDIR    = $DEPLOY_BASEDIR
+          echo DISPATCH_LOCATION     = $DISPATCH_LOCATION
+          echo env.DISPATCH_LOCATION = ${{ env.DISPATCH_LOCATION }}
+          echo PROD_BASEDIR          = $PROD_BASEDIR
+          echo STG_BASEDIR           = $STG_BASEDIR
+          echo env.STG_BASEDIR       = ${{ env.STG_BASEDIR }}
+          echo DEPLOY_BASEDIR        = $DEPLOY_BASEDIR
+          echo env.DEPLOY_BASEDIR    = ${{ env.DEPLOY_BASEDIR }}
 
       - name: Fetch built assets from Artifacts
         uses: actions/download-artifact@v2
