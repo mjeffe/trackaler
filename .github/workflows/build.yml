@@ -51,12 +51,7 @@ jobs:
           ref: ${{ github.event.client_payload.sha }}
 
       - name: Echo env vars
-        env:
-          MY_GITHUB_SHA: ${{ github.sha }}
-          WRKFLW_SHA: ${{ github.event.client_payload.sha }}
         run: |
-          echo MY_GITHUB_SHA = $MY_GITHUB_SHA
-          echo WRKFLW_SHA = $WRKFLW_SHA
           echo GITHUB_WORKFLOW   = $GITHUB_WORKFLOW
           echo HOME              = $HOME
           echo GITHUB_ACTION     = $GITHUB_ACTION

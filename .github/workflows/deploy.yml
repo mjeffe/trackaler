@@ -7,11 +7,10 @@ on:
     branches:
       - main
     inputs:
-      # full path to where to deploy to. For example: /home/trackaler/public_html
-      basedir:
-        description: 'Full path to deployment destination base directory'
+      location:
+        description: 'Deploy to which system (stg|prod)'
         required: true
-        default: ${{ secrets.DEPLOY_BASEDIR }}
+        default: stg
   repository_dispatch:
     types: [deploy-to-stg]
 
@@ -19,16 +18,26 @@ jobs:
   deploy-assets:
     name: Deploy assets to STAGING Server
     runs-on: ubuntu-latest
-#    env:
-#      WORKFLOW_BASEDIR: ${{ github.event.inputs.basedir }}
+    env:
+      DISPATCH_LOCATION: ${{ github.event.inputs.location }}
 #      DEFAULT_BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
 
     steps:
       - name: Set deployment env
         env:
-          WORKFLOW_BASEDIR: ${{ github.event.inputs.basedir }}
-          DEFAULT_BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
-        run: echo "DEPLOY_BASEDIR=$(if [ ${WORKFLOW_BASEDIR}x = 'x' ]; then echo $DEFAULT_BASEDIR; else echo $WORKFLOW_BASEDIR; fi)" >> $GITHUB_ENV
+          #DISPATCH_LOCATION: ${{ github.event.inputs.location }}
+          STG_BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
+          PROD_BASEDIR: ${{ secrets.PROD_BASEDIR }}
+        run: echo "DEPLOY_BASEDIR=$(if [ ${DISPATCH_LOCATION}x = 'prodx' ]; then echo $PROD_BASEDIR; else echo $STG_BASEDIR; fi)" >> $GITHUB_ENV
+
+    steps:
+      - name: Echo env
+        run: |
+          echo WORKFLOW_LOCATION = $WORKFLOW_LOCATION
+          echo DISPATCH_LOCATION = $DISPATCH_LOCATION
+          echo PROD_BASEDIR      = $PROD_BASEDIR
+          echo STG_BASEDIR       = $STG_BASEDIR
+          echo DEPLOY_BASEDIR    = $DEPLOY_BASEDIR
 
       - name: Fetch built assets from Artifacts
         uses: actions/download-artifact@v2
@@ -43,38 +52,38 @@ jobs:
 #          tar -czf app.tar.gz public
 #          ls -l
 
-      - name: Upload build assets
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DEPLOY_SSH_HOST }}
-          username: ${{ secrets.DEPLOY_SSH_USERNAME }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          passphrase: ${{ secrets.DEPLOY_SSH_PASSPHRASE }}
-          overwrite: 1
-          source: ${{ github.sha }}.tar.gz
-          target: ${{ secrets.DEPLOY_WORKDIR }}
-
-      - name: Deploy code
-        uses: appleboy/ssh-action@master
-        env:
-          WORKDIR: ${{ secrets.DEPLOY_WORKDIR }}
-          #BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
-        with:
-          host: ${{ secrets.DEPLOY_SSH_HOST }}
-          username: ${{ secrets.DEPLOY_SSH_USERNAME }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          passphrase: ${{ secrets.DEPLOY_SSH_PASSPHRASE }}
-          script_stop: true
-          #envs: WORKDIR,BASEDIR
-          envs: WORKDIR
-          script: |
-            cd ${WORKDIR} && rm -fr public
-            #tar --recursive-unlink -xzf ${WORKDIR}/app.tar.gz -C ${WORKDIR}
-            tar -xzf ${WORKDIR}/app.tar.gz -C ${WORKDIR}
-            cd ${WORKDIR} && cp -r public ${DEPLOY_BASEDIR}/
-            cd ${DEPLOY_BASEDIR} && git pull
-            cd ${DEPLOY_BASEDIR} && php-8.0 ~/bin/composer-8.0 install
-            cd ${DEPLOY_BASEDIR} && php-8.0 artisan config:cache
-            cd ${DEPLOY_BASEDIR} && php-8.0 artisan route:cache
-            cd ${DEPLOY_BASEDIR} && php-8.0 artisan view:cache
+#      - name: Upload build assets
+#        uses: appleboy/scp-action@master
+#        with:
+#          host: ${{ secrets.DEPLOY_SSH_HOST }}
+#          username: ${{ secrets.DEPLOY_SSH_USERNAME }}
+#          key: ${{ secrets.DEPLOY_SSH_KEY }}
+#          passphrase: ${{ secrets.DEPLOY_SSH_PASSPHRASE }}
+#          overwrite: 1
+#          source: ${{ github.sha }}.tar.gz
+#          target: ${{ secrets.DEPLOY_WORKDIR }}
+#
+#      - name: Deploy code
+#        uses: appleboy/ssh-action@master
+#        env:
+#          WORKDIR: ${{ secrets.DEPLOY_WORKDIR }}
+#          #BASEDIR: ${{ secrets.DEPLOY_BASEDIR }}
+#        with:
+#          host: ${{ secrets.DEPLOY_SSH_HOST }}
+#          username: ${{ secrets.DEPLOY_SSH_USERNAME }}
+#          key: ${{ secrets.DEPLOY_SSH_KEY }}
+#          passphrase: ${{ secrets.DEPLOY_SSH_PASSPHRASE }}
+#          script_stop: true
+#          #envs: WORKDIR,BASEDIR
+#          envs: WORKDIR
+#          script: |
+#            cd ${WORKDIR} && rm -fr public
+#            #tar --recursive-unlink -xzf ${WORKDIR}/app.tar.gz -C ${WORKDIR}
+#            tar -xzf ${WORKDIR}/app.tar.gz -C ${WORKDIR}
+#            cd ${WORKDIR} && cp -r public ${DEPLOY_BASEDIR}/
+#            cd ${DEPLOY_BASEDIR} && git pull
+#            cd ${DEPLOY_BASEDIR} && php-8.0 ~/bin/composer-8.0 install
+#            cd ${DEPLOY_BASEDIR} && php-8.0 artisan config:cache
+#            cd ${DEPLOY_BASEDIR} && php-8.0 artisan route:cache
+#            cd ${DEPLOY_BASEDIR} && php-8.0 artisan view:cache
 
