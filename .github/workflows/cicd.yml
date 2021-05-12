@@ -39,7 +39,7 @@ env:
 jobs:
 
   test:
-    name: Tests
+    name: Test
     runs-on: ubuntu-18.04
     services:
       mysql:
@@ -76,7 +76,7 @@ jobs:
         run: vendor/bin/phpunit
 
   build:
-    name: Build production assets
+    name: Build
     runs-on: ubuntu-18.04
     needs: [test]
 
