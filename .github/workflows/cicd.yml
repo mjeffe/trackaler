@@ -65,7 +65,12 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
+      - name: Build assets
+        run: |
+          npm install
+          npm run prod
+
+      - name: Run PHPUnit tests (Unit and Feature tests)
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
         run: vendor/bin/phpunit
@@ -88,7 +93,7 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
         run: tar -czf "${GITHUB_SHA}".tar.gz public
 
-      - name: Cache tarball in GH Artifacts store
+      - name: Upload tarball to GH Artifacts store
         uses: actions/upload-artifact@v1
         with:
           name: app-assets
@@ -98,7 +103,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     needs: [test,build]
-#    if: ${{ github.event.inputs.deploy_to == 'prod' }}
+    #if: ${{ github.event.inputs.deploy_to == 'prod' }}
 
     steps:
       - name: Set deployment env
@@ -116,12 +121,12 @@ jobs:
           echo DEPLOY_BASEDIR        = $DEPLOY_BASEDIR
           echo env.DEPLOY_BASEDIR    = ${{ env.DEPLOY_BASEDIR }}
 
-      - name: Fetch built assets from Artifacts cache
+      - name: Download built assets from GH Artifacts store
         uses: actions/download-artifact@v2
         with:
           name: app-assets
 
-      - name: Upload build assets
+      - name: Upload built assets to deployment server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DEPLOY_SSH_HOST }}
