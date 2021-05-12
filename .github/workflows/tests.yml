@@ -1,9 +1,10 @@
 name: Tests Workflow
 
-# disable. cicd.yml is current
-#on:
-#  push:
-#    branches: [ main ]
+# cicd.yml is current workflow
+# disable by triggering on push to non-existant branch
+on:
+  push:
+    branches: [ DISSABLED ]
 
 jobs:
 
