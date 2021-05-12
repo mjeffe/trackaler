@@ -23,7 +23,7 @@ if [ "$COMPOSER"x = 'x' ]; then
 fi
 
 $PHP $COMPOSER install
-$PHP artisan migrate
+$PHP artisan migrate --force
 $PHP artisan config:cache
 $PHP artisan route:cache
 $PHP artisan view:cache
