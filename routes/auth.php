@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
@@ -39,6 +40,14 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
                 ->middleware('guest')
                 ->name('password.update');
+
+Route::get('/change-password', [ChangePasswordController::class, 'create'])
+                ->middleware(['auth', 'throttle:6,1'])
+                ->name('password.change.request');
+
+Route::post('/change-password', [ChangePasswordController::class, 'store'])
+                ->middleware(['auth', 'throttle:6,1'])
+                ->name('password.change');
 
 Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->middleware('auth')
