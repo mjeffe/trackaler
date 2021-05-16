@@ -181,4 +181,32 @@ To upgrade a package, edit composer.json, then
 sail composer install
 ```
 
+## Docker and IPv6
+
+On Ubuntu 18.04, an update to docker 20.10.6 broke networking (docker will not
+start) if ipv6 is disabled (in /etc/default/grub).
+
+A solution that worked for me was a [suggestion by jflambert (comment 6)](https://forums.docker.com/t/ipv6-disabled-on-my-computer-but-docker-network-seems-looking-for-it/107299/9).
+Add the localhost to the port. My docker-compose.yml contains lines like
+`${APP_PORT:-80}:80` for `laravel.test: ports:` and
+`${FORWARD_DB_PORT:-3306}:3306` for `mysql: ports:`. So in my .env, I modified to add the
+localhost ipv4 ip address like this:
+```
+#APP_PORT=8080
+APP_PORT=127.0.0.1:8080
+#FORWARD_DB_PORT=33060
+FORWARD_DB_PORT=127.0.0.1:33060
+```
+
+One alternative is to keep ipv6 disabled and rollback to docker 20.10.5 like this:
+
+  apt install docker-ce=5:20.10.5~3-0~ubuntu-bionic
+
+You might also want to “hold” the package for now
+
+  apt-mark hold docker-ce
+
+you can later unhold the package using
+
+  apt-mark unhold docker-ce
 
