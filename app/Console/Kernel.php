@@ -32,7 +32,16 @@ class Kernel extends ConsoleKernel
             ->emailOutputOnFailure(env('MAIL_TO_ADDRESS'))
             ->onFailure(function (Stringable $output) {
                 Log::error('Error backing up db: ' . $output);
-             });
+            });
+
+        $schedule->command('backup:clean')
+            ->daily()->at(env('BACKUP_CLEAN_TIME', '02:00'))  // default runtime to 2:00 AM
+            ->timezone('America/Chicago')               // US Central time
+            ->environments([env('BACKUP_ENVIRONMENTS', 'production')])
+            ->emailOutputOnFailure(env('MAIL_TO_ADDRESS'))
+            ->onFailure(function (Stringable $output) {
+                Log::error('Error backing up db: ' . $output);
+            });
     }
 
     /**
