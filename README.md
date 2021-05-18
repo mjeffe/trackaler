@@ -1,9 +1,7 @@
 # Trackaler
 
 ## Simple site to track stuff over time
-
-[![tests](https://github.com/mjeffe/trackaler/actions/workflows/tests.yml/badge.svg)](https://github.com/mjeffe/trackaler/actions/workflows/tests.yml)
-[![build](https://github.com/mjeffe/trackaler/actions/workflows/build.yml/badge.svg)](https://github.com/mjeffe/trackaler/actions/workflows/build.yml)
+[![CI](https://github.com/mjeffe/trackaler/actions/workflows/cicd.yml/badge.svg)](https://github.com/mjeffe/trackaler/actions/workflows/cicd.yml)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
 This is the source for [trackaler.com](https://trackaler.com)
