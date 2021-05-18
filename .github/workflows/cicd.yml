@@ -20,7 +20,7 @@
 #   I could *mostly* make it work, but it involved a number of hacks that were
 #   not pretty. So, here I just have it all as a single workflow.
 #
-name: CI/CD Workflow
+name: CI/CD
 
 on:
   push:
