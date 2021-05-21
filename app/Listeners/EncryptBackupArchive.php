@@ -19,6 +19,14 @@ use ZipArchive;
  *
  * The class is "overridden" by binding this class in App\Providers\AppServiceProvider
  *
+ * ---------------
+ *
+ * This class differs from Spatie's class in that it:
+ *  - ignores the config algorithm check
+ *  - encrypts using a shell command for gpg
+ *
+ *  See notes in the encrypt() function!
+ *
  * ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
  */
 class EncryptBackupArchive {
@@ -55,17 +63,8 @@ class EncryptBackupArchive {
 
     public static function shouldEncrypt(): bool {
         $password = static::getPassword();
-        $algorithm = static::getAlgorithm();
 
         if ($password === null) {
-            return false;
-        }
-
-        if ($algorithm === null) {
-            return false;
-        }
-
-        if ($algorithm === false) {
             return false;
         }
 
@@ -74,18 +73,6 @@ class EncryptBackupArchive {
 
     protected static function getPassword(): ?string {
         return config('backup.backup.password');
-    }
-
-    protected static function getAlgorithm(): ?int {
-        $encryption = config('backup.backup.encryption');
-
-        if ($encryption === 'default') {
-            $encryption = defined("\ZipArchive::EM_AES_256")
-                ? ZipArchive::EM_AES_256
-                : null;
-        }
-
-        return $encryption;
     }
 
     private static function run($cmd) {
