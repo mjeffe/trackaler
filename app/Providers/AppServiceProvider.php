@@ -11,9 +11,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-        //
+    public function register() {
+        // override the spatie/laravel-backup package's encryption listener
+        // ! NOTE !  I would not recommend using this! See notes in the listener
+        $this->app->bind(
+            \Spatie\Backup\Listeners\EncryptBackupArchive::class,
+            \App\Listeners\EncryptBackupArchive::class
+        );
     }
 
     /**
