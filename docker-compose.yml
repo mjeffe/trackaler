@@ -15,6 +15,8 @@ services:
             LARAVEL_SAIL: 1
         volumes:
             - '.:/var/www/html'
+            # mount my local .ssh dir as read-only so I can use my ssh keys to deploy, etc
+            - '~/.ssh:/home/sail/.ssh:ro'
         networks:
             - sail
         depends_on:

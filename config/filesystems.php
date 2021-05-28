@@ -35,6 +35,16 @@ return [
             'root' => storage_path('backups'),
         ],
 
+        'backups-remote' => [
+            'driver' => 'sftp',
+            'root' => env('BACKUP_REMOTE_ROOT'),
+            'host' => env('BACKUP_REMOTE_HOST'),
+            'username' => env('BACKUP_REMOTE_USERNAME'),
+            #'password' => env('BACKUP_REMOTE_PASSWORD'),
+            'privateKey' => env('BACKUP_REMOTE_KEY'),
+            'password' => env('BACKUP_REMOTE_PASSPHRASE'),
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
