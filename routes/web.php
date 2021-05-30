@@ -31,6 +31,10 @@ Route::get('/', function (TrackerController $controller) {
     }
 })->name('home');
 
+Route::get('/examples', function () {
+    return view('examples');
+})->name('examples');
+
 Route::get('/credits', function () {
     return view('footer.credits');
 })->name('credits');
