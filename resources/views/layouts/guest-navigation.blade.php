@@ -9,20 +9,16 @@
                         <x-img.home class="w-6 h-6"/>
                     </a>
                 </div>
-            </div>
 
-            <!-- Navigation Links -->
-            {{-- Also add your links below in the "Responsive Navigation Menu" --}}
-            <div class="flex">
-                <div class="origin-top-right right-0">
-                    <div class="hidden space-x-6 fixed top-0 right-0 px-6 py-4 sm:block">
-                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                            {{ __('Login') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                            {{ __('Register') }}
-                        </x-nav-link>
-                    </div>
+                <!-- Navigation Links -->
+                {{-- Also add your links below in the "Responsive Navigation Menu" --}}
+                <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                        {{ __('Login') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                        {{ __('Register') }}
+                    </x-nav-link>
                 </div>
             </div>
 
