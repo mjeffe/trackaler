@@ -30,16 +30,35 @@ docker-compose --version
 For Laravel, I also needed be able to _Manage docker as a non-root user_ from the
 [post-installation](https://docs.docker.com/engine/install/linux-postinstall/) instructions.
 
+As per the instructions, finally run: (do I need to run this after every reboot?
+```
+docker context use rootless
+```
+
 ## Installing Laravel
 
-Now that docker is set up, you can install Laravel using the official installation instructions with
-[docker/sail](https://laravel.com/docs/8.x/installation#getting-started-on-linux). To begin with (and
-for the forseeable future) I only need postgres, so:
+Copy `.env.example` to `.env` and change the DB parameters (DB_USERNAME to something NOT root).
+
+Once you have cloned this project, and have docker installed, you can "setup" the app by running:
 ```
-curl -s "https://laravel.build/example-app?with=pgsql" | bash
+docker run --rm \
+    -v $(pwd):/opt \
+    -w /opt \
+    laravelsail/php80-composer:latest \
+    composer install --ignore-platform-reqs
+```
+NOTE!!! The [official doc](https://laravel.com/docs/8.x/sail#installing-composer-dependencies-for-existing-projects)
+also has includes the line `-u "$(id -u):$(id -g)" \` in the previous command. But for me, that caused permission issues
+inside the container.
+
+### Create a new Larvel app
+Just for reference, to create a new Laravel app using docker, follow the official installation instructions using
+[docker/sail](https://laravel.com/docs/8.x/installation#getting-started-on-linux). For now (and for the forseeable
+future) I only need postgres, so I used:
+```
+curl -s "https://laravel.build/trackaler?with=pgsql" | bash
 ```
 
-Edit `.env` and change the DB_USER to something NOT root
 
 ## Helpful Links
 
@@ -199,14 +218,17 @@ FORWARD_DB_PORT=127.0.0.1:33060
 ```
 
 One alternative is to keep ipv6 disabled and rollback to docker 20.10.5 like this:
-
-  apt install docker-ce=5:20.10.5~3-0~ubuntu-bionic
+```
+apt install docker-ce=5:20.10.5~3-0~ubuntu-bionic
+```
 
 You might also want to “hold” the package for now
-
-  apt-mark hold docker-ce
+```
+apt-mark hold docker-ce
+```
 
 you can later unhold the package using
-
-  apt-mark unhold docker-ce
+```
+apt-mark unhold docker-ce
+```
 
