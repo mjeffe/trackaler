@@ -10,7 +10,7 @@ jobs:
 
   app-tests:
     name: Tests
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     services:
       mysql:
         image: mysql:8.0
