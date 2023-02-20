@@ -8,6 +8,10 @@
 # - A push to main triggers CI/CD workflow
 # - The default deploy is to staging
 # - A manual workflow_dispatch is needed to deploy to production
+#   * On github site, click Actions
+#   * In left sidebar select CI/CD workflow
+#   * On right side select Run Workflow
+#   * Select branch main, Deploy to 'prod'
 #
 # My deployment strategy is far from ideal, but works for now.  The "right" way
 # to deploy would be to bundle *everything* rather than just the compiled
