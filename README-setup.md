@@ -3,8 +3,9 @@
 * See previous warnings about the quality of this documentation...
 * See [README-docker.md](README-docker.md) for additional docker stuff
 
-**My Dev ENV is currently broken due to permission issues in the container**.
-See Permission Issues section below.
+**My local dev environment is currently broken due to permission issues in the
+container**.  See Permission Issues section below.  This README is a record of
+the steps I've taken to get up and running on a new Ubuntu 22.04 machine.
 
 ## Requirements
 
