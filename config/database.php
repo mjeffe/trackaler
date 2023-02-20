@@ -63,6 +63,10 @@ return [
             ]) : [],
             'dump' => [
                 'useSingleTransaction' => true,
+                # fixes a change to mysqldump that requires additional privileges not granted by dreamhost:
+                #   Couldn't execute 'FLUSH TABLES': Access denied; you need (at least one of)
+                #   the RELOAD or FLUSH_TABLES privilege(s) for this operation (1227)
+                'addExtraOption' => '--no-tablespaces',
             ],
         ],
 
