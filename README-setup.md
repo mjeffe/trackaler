@@ -16,9 +16,10 @@ Install `docker` and either `docker desktop` or `docker-engine`. See `README-doc
 
 ## Permission Issues
 
-Starting on Ubuntu 22.04, I only installed docker desktop. It seems there are
-permission issues in the containers which I have not been able to resolve. This
-issue may have something to do with it: https://github.com/laravel/sail/issues/548
+Starting on Ubuntu 22.04, I installed `docker` and `docker desktop`, but
+nothing else (no apache, php, mysql, etc). It seems there are permission issues
+in the containers which I have not been able to resolve. This issue may have
+something to do with it: https://github.com/laravel/sail/issues/548
 
 Switch the context to use `docker engine` running the following command: `docker context use default`
 
