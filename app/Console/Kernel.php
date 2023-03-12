@@ -25,6 +25,22 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected function schedule(Schedule $schedule) {
+        /*
+         * spatie/laravel-backup started throwing errors on my dreamhost
+         * account (somewhere around Jan/Feb of 2023)
+         *
+         *   mysqldump: Couldn't execute 'FLUSH TABLES': Access denied; you
+         *     need (at least one of) the RELOAD or FLUSH_TABLES privilege(s) for
+         *     this operation (1227)
+         *
+         * Some googling suggested passing the --no-tablespaces flag to
+         * mysqldump would work.  When running mysqldump manually, this did
+         * work, but passing it to spatie in the mysql->dump->addExtraOption
+         * part of config/databas.php did not work. Since this was primarily a
+         * learning project, and mostly unused now, I'm simply turning backups
+         * off.
+         */
+        /*
         $schedule->command('backup:run')
             ->daily()->at(env('BACKUP_TIME', '03:00'))  // default runtime to 3:00 AM
             ->timezone('America/Chicago')               // US Central time
@@ -42,6 +58,7 @@ class Kernel extends ConsoleKernel
             ->onFailure(function (Stringable $output) {
                 Log::error('Error backing up db: ' . $output);
             });
+         */
     }
 
     /**
